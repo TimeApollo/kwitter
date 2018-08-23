@@ -3,12 +3,14 @@ import { withRouter } from 'react-router-dom';
 import {connect } from 'react-redux'
 import './App.css';
 import { registerUser , registerComplete } from './action'
+import LoginForm from "./login.jsx"
 
 class App extends Component {
   render() {
     return (
-      <p>We Have Begun {this.props.registerUser('TimeApollo','TimeApollo','TimeApollo')}</p>
-      
+      <React.Fragment>
+        <LoginForm>{this.props.registerUser('TimeApollo','TimeApollo','TimeApollo')}</LoginForm>
+      </React.Fragment>
     );
   }
 }
