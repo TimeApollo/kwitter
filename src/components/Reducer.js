@@ -5,7 +5,8 @@ import {
   USER_LOGIN,
   USER_LOGOUT,
   REGISTER_USER,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  REGISTER_COMPLETE
 } from "./action"
 
 const initialState = {
@@ -19,7 +20,14 @@ const initialState = {
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
-  return state;
+  switch (action.type){
+    case REGISTER_COMPLETE:
+      return state;
+    case REGISTER_USER:
+      return state;
+    default:
+      return state;
+  }
 }
 
 export {kwitterReducer}

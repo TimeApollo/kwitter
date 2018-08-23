@@ -7,6 +7,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USER = "GET_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const REGISTER_COMPLETE = 'REGISTER_COMPLETE'
 
 const api = 'https://kwitter-api.herokuapp.com/'
 
@@ -25,20 +26,21 @@ export const registerUser = (username, password, displayName) => (dispatch) => {
   }
   fetch(`${api}auth/register`, header)
     .then(response => response.json())
-    .then()
-    return {
-        type: REGISTER_USER, 
-        payload: {
-            username, 
-            password, 
-            displayName
-        }
-    }
+    .then(registerResponse => {
+      console.log(registerResponse)
+      dispatch(registerComplete(registerResponse.username,registerResponse.displayName))
+    })
 }
 
-// export const registerUser = () => {
-
-// }
+export const registerComplete = (userName, displayName) => {
+  return {
+    type: REGISTER_COMPLETE,
+    payload: {
+      userName,
+      displayName
+    },
+  }
+}
 
 //needs to hit text and user id, message id will be created when posted
 export const postMessage = (text, userId) => {
