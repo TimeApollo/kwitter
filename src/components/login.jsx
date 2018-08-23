@@ -2,19 +2,17 @@ import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 const LoginForm = () => (
-  <div className='login-form'>
-    {/*
-      Heads up! The styles below are necessary for the correct render of this example.
-      You can do same with CSS, the main idea is that all the elements up to the `Grid`
-      below must have a height of 100%.
-    */}
-    <style>{`
+<div className='login-form'>
+    <style> {`
       body > div,
       body > div > div,
       body > div > div > div.login-form {
         height: 100%;
       }
     `}</style>
+    <nav style={{display: "flex", justifyContent: "center"}}>
+      <img className="banner" src={require("../kwitterLogoFlare.png")}/>
+    </nav>
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
@@ -30,14 +28,13 @@ const LoginForm = () => (
               placeholder='Password'
               type='password'
             />
-
             <Button color='teal' fluid size='large'>
               Login
             </Button>
           </Segment>
         </Form>
         <Message>
-          New to us? <a href='#'>Sign Up</a>
+          New to us? <a href='#'>Register</a>
         </Message>
       </Grid.Column>
     </Grid>
