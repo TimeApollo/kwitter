@@ -8,6 +8,38 @@ export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USER = "GET_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
 
+const api = 'https://kwitter-api.herokuapp.com/'
+
+//register user will (probably) be stored locally 
+export const registerUser = (username, password, displayName) => (dispatch) => {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "username":username,
+      "password":password,
+      "displayName":displayName
+    })
+  }
+  fetch(`${api}auth/register`, header)
+    .then(response => response.json())
+    .then()
+    return {
+        type: REGISTER_USER, 
+        payload: {
+            username, 
+            password, 
+            displayName
+        }
+    }
+}
+
+// export const registerUser = () => {
+
+// }
+
 //needs to hit text and user id, message id will be created when posted
 export const postMessage = (text, userId) => {
     return {
@@ -41,7 +73,7 @@ export const likeMessage = (userId, messageId) => {
     }
 }
 
-export const userLogin = id => {
+export const userLogin = (username , password) => {
     return {
         type: USER_LOGIN, 
         payload: {
@@ -51,31 +83,28 @@ export const userLogin = id => {
     }
 }
 
-export const getUser = (token) => {
+export const sendGetUser = (token) => {
     return {
         type: GET_USER,
         payload: token
     }
 }
 
-export const userLogout = id => {
+export const receiveGetUser = (user) => {
+  return {
+      type: GET_USER,
+      payload: user
+  }
+}
+
+export const userLogout = (userId) => {
     return {
         type: USER_LOGOUT, 
         payload: userId
     }
 }
 
-//register user will (probably) be stored locally 
-// export const registerUser = (username, password, displayName) => {
-//     return {
-//         type: REGISTER_USER, 
-//         payload: {
-//             username, 
-//             password, 
-//             displayName
-//         }
-//     }
-// }
+
 
 export const editProfile = (password) => {
     return {
