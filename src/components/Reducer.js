@@ -9,7 +9,13 @@ import {
 } from "./action"
 
 const initialState = {
-  
+  auth: {
+    token: null,
+    success: false
+  },
+  messages: [],
+  user:{},
+  isRegisterSuccess: false
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
