@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-const LoginForm = () => (
+const EditProfileForm = () => (
 <div className='login-form'>
     <style> {`
       body > div,
@@ -16,11 +16,11 @@ const LoginForm = () => (
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Log-in to your account
+          <Image src="logo.ico" />Change your password
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
+            <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' />
             <Form.Input
               fluid
               icon='lock'
@@ -29,16 +29,13 @@ const LoginForm = () => (
               type='password'
             />
             <Button color='teal' fluid size='large'>
-              Login
+              Update
             </Button>
           </Segment>
         </Form>
-        <Message>
-          New to us? <a href='#'>Register</a>
-        </Message>
       </Grid.Column>
     </Grid>
   </div>
 )
 
-export default LoginForm
+export default EditProfileForm
