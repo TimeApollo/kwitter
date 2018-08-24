@@ -1,7 +1,8 @@
 export const POST_MESSAGE = "POST_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const LIKE_MESSAGE = "LIKE_MESSAGE";
-export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
+export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL"
 export const USER_LOGOUT = "USER_LOGOUT";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USER = "GET_USER";
@@ -52,13 +53,46 @@ export const registerFail = () => {
   }
 }
 
-export const userLogin = (username , password) => {
+export const userLogin = (username , password) => (dispatch) => {
+   //this is for testing
+   username = 'TimeApollo45'
+   password = 'TimeApollo45'
+   //
+
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "username":username,
+      "password":password,
+    })
+  }
+  
+  fetch(`${api}auth/login`, header)
+    .then(response => response.json())
+    .then(loginResponse => {
+      console.log(loginResponse)
+      dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
+    }).catch(error => dispatch(registerFail()))
+  
+}
+
+export const userLoginSuccess = (token, success, userID) => {
   return {
-      type: USER_LOGIN, 
-      payload: {
-          username,
-          password
-      }
+    type: USER_LOGIN_SUCCESS, 
+    payload: {
+        token,
+        isLoginSuccess: success,
+        userID
+    }
+  }
+}
+
+export const userLoginFail = () => {
+  return {
+    type: USER_LOGIN_FAIL
   }
 }
 

@@ -6,17 +6,19 @@ import {
   USER_LOGOUT,
   EDIT_PROFILE,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  USER_LOGIN_SUCCESS
 } from "./action"
 
 const initialState = {
   auth: {
     token: null,
-    success: false
+    isLoginSuccess: false
   },
   messages: [],
   user:{},
-  isRegisterSuccess: false
+  userID:null,
+  isRegisterSuccess: false,
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
@@ -26,6 +28,15 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         isRegisterSuccess: true,
+      }
+    case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        userID:action.payload.userID,
+        auth: {
+          token: action.payload.token,
+          isLoginSuccess: action.payload.isLoginSuccess,
+        }
       }
     default:
       return state;
