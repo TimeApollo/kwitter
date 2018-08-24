@@ -19,28 +19,51 @@ class RegisterUserPage extends React.Component{
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Log-in to your account
+          <Image src="logo.ico" />Register a new account
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input 
-                fluid icon='user' 
-                iconPosition='left' 
-                placeholder='Username' />
+
             <Form.Input
                 fluid
+                required
+                class="displayName"
+                icon='user'
+                iconPosition='left'
+                placeholder='Name'
+            />
+                <Form.Input 
+                fluid 
+                required
+                icon='user'
+                class="username"
+                iconPosition='left' 
+                placeholder='Username' />
+                <Form.Input
+                fluid
+                required
+                class="username"
                 icon='lock'
                 iconPosition='left'
-                placeholder='Password'
+                placeholder='Create a password'
+                type='password'
+            />
+                <Form.Input
+                fluid
+                required
+                class="username"
+                icon='lock'
+                iconPosition='left'
+                placeholder='Re-enter Password'
                 type='password'
             />
             <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
-              Login
+              Register User
             </Button>
           </Segment>
         </Form>
         <Message>
-          New to us? <a href='#'>Register</a>
+          Already a member? <a href='#'>Login</a>
         </Message>
       </Grid.Column>
     </Grid>

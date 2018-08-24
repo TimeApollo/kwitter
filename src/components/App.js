@@ -4,13 +4,16 @@ import {connect } from 'react-redux'
 import './App.css';
 import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
-// import EditProfileForm from "./editProfile.jsx"
+import EditProfileForm from "./editProfile.jsx"
+import RegisterUserPage from "./register.jsx"
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <LoginForm></LoginForm>
+        {/* <EditProfileForm></EditProfileForm>
+        <RegisterUserPage></RegisterUserPage> */}
       </React.Fragment>
     );
   }

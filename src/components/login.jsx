@@ -5,6 +5,26 @@ import { registerUser , registerSuccess , registerFail, userLogin} from './actio
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
+  
+  state = {
+    username: "",
+    password: ""
+  }
+  //click handler
+
+  handleSubmitLogin = () => {
+    this.props.userLogin(this.state.username, this.state.password)
+  }
+
+  handleChangeUser = (event) => {
+    this.setState({username: event.target.value})
+  }
+
+  handleChangePassword = (event) => {
+    this.setState({password: event.target.value})
+  }
+
+
   render(){
     return (
 <div className='login-form'>
@@ -23,15 +43,28 @@ class LoginForm extends React.Component{
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
             <Form.Input
               fluid
+              required
+              value= {this.state.username}
+              class="username"
+              icon='user' 
+              iconPosition='left' 
+              placeholder='Username'
+              onChange= {this.handleChangeUser}
+              />
+            <Form.Input
+              fluid
+              required
+              value= {this.state.password}
+              class="password"
               icon='lock'
               iconPosition='left'
               placeholder='Password'
               type='password'
+              onChange= {this.handleChangePassword}
             />
-            <Button color='teal' fluid size='large' onClick={this.props.userLogin}>
+            <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
               Login
             </Button>
           </Segment>
