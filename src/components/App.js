@@ -4,6 +4,7 @@ import {connect } from 'react-redux'
 import './App.css';
 import { registerUser , registerComplete } from './action'
 import LoginForm from "./login.jsx"
+// import EditProfileForm from "./editProfile.jsx"
 
 class App extends Component {
   render() {
