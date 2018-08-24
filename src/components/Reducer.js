@@ -4,8 +4,9 @@ import {
   LIKE_MESSAGE,
   USER_LOGIN,
   USER_LOGOUT,
-  REGISTER_USER,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL
 } from "./action"
 
 const initialState = {
@@ -19,7 +20,16 @@ const initialState = {
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
-  return state;
+  switch (action.type){
+    case REGISTER_SUCCESS:
+      console.log('i made it here')
+      return {
+        ...state,
+        isRegisterSuccess: true,
+      }
+    default:
+      return state;
+  }
 }
 
 export {kwitterReducer}

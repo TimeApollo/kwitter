@@ -3,15 +3,20 @@ export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const LIKE_MESSAGE = "LIKE_MESSAGE";
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
-export const REGISTER_USER = "REGISTER_USER";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USER = "GET_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const REGISTER_SUCCESS = 'REGISTER_COMPLETE';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 
 const api = 'https://kwitter-api.herokuapp.com/'
 
-//register user will (probably) be stored locally 
 export const registerUser = (username, password, displayName) => (dispatch) => {
+  //this is for testing
+  username = 'TimeApollo45'
+  password = 'TimeApollo45'
+  displayName = 'TimeApollo45'
+  //
   const header = {
     method: "POST",
     headers: {
@@ -25,20 +30,37 @@ export const registerUser = (username, password, displayName) => (dispatch) => {
   }
   fetch(`${api}auth/register`, header)
     .then(response => response.json())
-    .then()
-    return {
-        type: REGISTER_USER, 
-        payload: {
-            username, 
-            password, 
-            displayName
-        }
-    }
+    .then(registerResponse => {
+      console.log(registerResponse)
+      dispatch(registerSuccess(registerResponse.username,registerResponse.displayName))
+    }).catch(error => dispatch(registerFail()))
 }
 
-// export const registerUser = () => {
+export const registerSuccess = (userName, displayName) => {
+  return {
+    type: REGISTER_SUCCESS,
+    payload: {
+      userName,
+      displayName
+    },
+  }
+}
 
-// }
+export const registerFail = () => {
+  return {
+    type: REGISTER_FAIL,
+  }
+}
+
+export const userLogin = (username , password) => {
+  return {
+      type: USER_LOGIN, 
+      payload: {
+          username,
+          password
+      }
+  }
+}
 
 //needs to hit text and user id, message id will be created when posted
 export const postMessage = (text, userId) => {
@@ -69,16 +91,6 @@ export const likeMessage = (userId, messageId) => {
         payload: {
             userId,
             messageId
-        }
-    }
-}
-
-export const userLogin = (username , password) => {
-    return {
-        type: USER_LOGIN, 
-        payload: {
-            username,
-            password
         }
     }
 }

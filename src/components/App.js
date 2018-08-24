@@ -1,14 +1,43 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import {connect } from 'react-redux'
 import './App.css';
+import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
 // import EditProfileForm from "./editProfile.jsx"
 
 class App extends Component {
   render() {
     return (
-      <LoginForm></LoginForm>
+      <React.Fragment>
+        <LoginForm></LoginForm>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: {
+    token: state.auth.token,
+    success: state.auth.successf
+  },
+  messages: state.messages,
+  user:state.user,
+  isRegisterSuccess: state.isRegisterSuccess
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registerSuccess: (userName, displayName) => {
+      dispatch(registerSuccess(userName, displayName))
+    },
+    registerUser: (username, password, displayName) => {
+      dispatch(registerUser(username, password, displayName))
+    },
+    registerFail: () => {
+      dispatch(registerFail())
+    }
+  }
+}
+
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )(App));
