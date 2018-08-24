@@ -4,7 +4,7 @@ import {connect } from 'react-redux'
 import { registerUser , registerSuccess , registerFail } from './action'
 import Navbar from "./navbar.jsx"
 
-class LoginForm extends React.Component{
+class RegisterUserPage extends React.Component{
   render(){
     return (
 <div className='login-form'>
@@ -23,13 +23,16 @@ class LoginForm extends React.Component{
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
+            <Form.Input 
+                fluid icon='user' 
+                iconPosition='left' 
+                placeholder='Username' />
             <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
             />
             <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
               Login
@@ -66,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect( null , mapDispatchToProps )(LoginForm)
+export default connect( null , mapDispatchToProps )(RegisterUserPage)
