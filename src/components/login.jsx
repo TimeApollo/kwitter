@@ -1,7 +1,11 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import {connect } from 'react-redux'
+import { registerUser , registerSuccess , registerFail } from './action'
 
-const LoginForm = () => (
+class LoginForm extends React.Component{
+  render(){
+    return (
 <div className='login-form'>
     <style> {`
       body > div,
@@ -28,7 +32,7 @@ const LoginForm = () => (
               placeholder='Password'
               type='password'
             />
-            <Button color='teal' fluid size='large'>
+            <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
               Login
             </Button>
           </Segment>
@@ -39,6 +43,26 @@ const LoginForm = () => (
       </Grid.Column>
     </Grid>
   </div>
-)
+    )
+  }
+}
 
-export default LoginForm
+// const mapStateToProps = ({isRegisterSuccess}) => ({
+//   isRegisterSuccess
+// });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registerUser: (username, password, displayName) => {
+      dispatch(registerUser(username, password, displayName))
+    },
+    // registerSuccess: (userName, displayName) => {
+    //   dispatch(registerSuccess(userName, displayName))
+    // },
+    // registerFail: () => {
+    //   dispatch(registerFail())
+    // }
+  }
+}
+
+export default connect( null , mapDispatchToProps )(LoginForm)

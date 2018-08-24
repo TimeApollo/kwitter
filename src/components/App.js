@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import {connect } from 'react-redux'
 import './App.css';
-import { registerUser , registerComplete } from './action'
+import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
 // import EditProfileForm from "./editProfile.jsx"
 
@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <LoginForm>{this.props.registerUser('TimeApollo','TimeApollo','TimeApollo')}</LoginForm>
+        <LoginForm></LoginForm>
       </React.Fragment>
     );
   }
@@ -19,7 +19,7 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   auth: {
     token: state.auth.token,
-    success: state.auth.success
+    success: state.auth.successf
   },
   messages: state.messages,
   user:state.user,
@@ -28,11 +28,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registerComplete: (userName, displayName) => {
-      dispatch(registerComplete(userName, displayName))
+    registerSuccess: (userName, displayName) => {
+      dispatch(registerSuccess(userName, displayName))
     },
     registerUser: (username, password, displayName) => {
       dispatch(registerUser(username, password, displayName))
+    },
+    registerFail: () => {
+      dispatch(registerFail())
     }
   }
 }
