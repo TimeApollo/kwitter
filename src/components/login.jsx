@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail , userLogin } from './action'
+import { registerUser , registerSuccess , registerFail, userLogin} from './action'
+import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
   render(){
@@ -14,6 +15,7 @@ class LoginForm extends React.Component{
         height: 100%;
       }
     `}</style>
+    <Navbar></Navbar>
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
@@ -48,6 +50,8 @@ class LoginForm extends React.Component{
 //   isRegisterSuccess
 // });
 
+
+//only need to map async props here
 const mapDispatchToProps = (dispatch) => {
   return {
     userLogin: (username, password) => {
