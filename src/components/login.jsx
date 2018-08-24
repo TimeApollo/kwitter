@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail } from './action'
+import { registerUser , registerSuccess , registerFail , userLogin } from './action'
 
 class LoginForm extends React.Component{
   render(){
@@ -14,9 +14,6 @@ class LoginForm extends React.Component{
         height: 100%;
       }
     `}</style>
-    <nav style={{display: "flex", justifyContent: "center"}}>
-      <img className="banner" src={require("../kwitterLogoFlare.png")}/>
-    </nav>
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
@@ -32,7 +29,7 @@ class LoginForm extends React.Component{
               placeholder='Password'
               type='password'
             />
-            <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
+            <Button color='teal' fluid size='large' onClick={this.props.userLogin}>
               Login
             </Button>
           </Segment>
@@ -53,8 +50,8 @@ class LoginForm extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registerUser: (username, password, displayName) => {
-      dispatch(registerUser(username, password, displayName))
+    userLogin: (username, password) => {
+      dispatch(userLogin(username, password))
     },
     // registerSuccess: (userName, displayName) => {
     //   dispatch(registerSuccess(userName, displayName))
