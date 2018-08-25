@@ -19,26 +19,50 @@ class LoginForm extends React.Component{
     <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Log-in to your account
+          <Image src="logo.ico" />Update your profile
         </Header>
         <Form size='large'>
           <Segment stacked>
-            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' />
+          <Form.Input
+              fluid
+              required
+              class= "username" 
+              icon='user' 
+              iconPosition='left' 
+              placeholder='Username'
+              />
             <Form.Input
               fluid
+              required
+              class= "password" 
+              icon='lock' 
+              iconPosition='left' 
+              placeholder='Old password'
+              type="password"
+              />
+            <Form.Input
+              fluid
+              required
+              class="newPassword"
               icon='lock'
               iconPosition='left'
-              placeholder='Password'
+              placeholder='New password'
+              type='password'
+            />
+              <Form.Input
+              fluid
+              required
+              class="newPassword"
+              icon='lock'
+              iconPosition='left'
+              placeholder='Re-enter new password'
               type='password'
             />
             <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
-              Login
+              Submit Changes
             </Button>
           </Segment>
         </Form>
-        <Message>
-          New to us? <a href='#'>Register</a>
-        </Message>
       </Grid.Column>
     </Grid>
   </div>

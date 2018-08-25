@@ -53,11 +53,13 @@ export const registerFail = () => {
   }
 }
 
+
+// pass in form input / input from page into the username/password instead of hardcoding 
 export const userLogin = (username , password) => (dispatch) => {
    //this is for testing
-   username = 'TimeApollo45'
-   password = 'TimeApollo45'
-   //
+//    username = 'TimeApollo45'
+//    password = 'TimeApollo45'
+//    //
 
   const header = {
     method: "POST",
@@ -70,9 +72,11 @@ export const userLogin = (username , password) => (dispatch) => {
     })
   }
   
+  
   fetch(`${api}auth/login`, header)
     .then(response => response.json())
     .then(loginResponse => {
+        //add code to push to new URL after this fetch is completed so that it goes to profile page
       console.log(loginResponse)
       dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
     }).catch(error => dispatch(registerFail()))
