@@ -10,7 +10,8 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   GET_USERS,
-  GET_MESSAGES
+  GET_MESSAGES,
+  GET_ONE_MESSAGE,
 } from "./action"
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     isLoginSuccess: false
   },
   messages: [],
+  message: {},
   users:{},
   userID:null,
   isRegisterSuccess: false,
@@ -48,6 +50,7 @@ const kwitterReducer = ( state = initialState , action ) => {
           isLoginSuccess: false
         },
         messages: [],
+        message: {},
         users:{},
         userID:null,
         isRegisterSuccess: false,
@@ -60,7 +63,19 @@ const kwitterReducer = ( state = initialState , action ) => {
     case GET_USERS:
       return {
         ...state,
-        users: action.payload
+        users: action.payload.users
+      }
+    case GET_ONE_MESSAGE:
+      return {
+        ...state,
+        message: action.payload.message,
+      }
+    case POST_MESSAGE:
+      const newMessageArray = state.messages.slice()
+      newMessageArray.unshift(action.payload.message)
+      return {
+        ...state,
+        messages: newMessageArray
       }
     default:
       return state;

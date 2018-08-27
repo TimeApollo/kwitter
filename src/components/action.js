@@ -8,6 +8,7 @@ export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USERS = "GET_USERS";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const GET_ONE_MESSAGE = "GET_ONE_MESSAGE"
 export const REGISTER_SUCCESS = 'REGISTER_COMPLETE';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
@@ -163,14 +164,44 @@ export const getMessages = (messages) => {
   }
 }
 
+export const fetchOneMessage = (messageId) => (dispatch) => {
+  fetch(`${api}/messages/${messageId}`)
+    .then(response => response.json())
+    .then(message => {
+      dispatch(getOneMessage(message))
+    })
+}
+
+export const getOneMessage = (message) => {
+  return {
+    type: GET_ONE_MESSAGE,
+    payload: message
+  }
+}
+
+export const postMessage = (token,text) => (dispatch) => {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      "text":text,
+    })
+  }
+  fetch(`${api}/messages`, header)
+    .then(response => response.json())
+    .then(message => {
+      dispatch(postMessageSuccess(message))
+    })
+}
+
 //needs to hit text and user id, message id will be created when posted
-export const postMessage = (text, userId) => {
+export const postMessageSuccess = (message) => {
     return {
         type: POST_MESSAGE,
-        payload: {
-            userId,
-            text
-        }
+        payload: message
     }
 }
 
