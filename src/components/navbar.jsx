@@ -6,7 +6,7 @@ import React from 'react'
 class Navbar extends React.Component {
 render() {
     return (
-        <div class="navbar">
+        <div className="navbar">
             <nav style={{display: "flex", justifyContent: "center"}}>
                 <img className="banner" src={require("../kwitterLogoFlare.png")}/>
             </nav>

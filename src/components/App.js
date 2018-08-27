@@ -22,7 +22,7 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   auth: {
     token: state.auth.token,
-    success: state.auth.successf
+    success: state.auth.success
   },
   messages: state.messages,
   user:state.user,
