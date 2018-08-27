@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin} from './action'
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages } from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -14,6 +14,8 @@ class LoginForm extends React.Component{
 
   handleSubmitLogin = () => {
     this.props.userLogin(this.state.username, this.state.password)
+    this.props.fetchUsers();
+    this.props.fetchMessages();
   }
 
   handleChangeUser = (event) => {
@@ -21,7 +23,7 @@ class LoginForm extends React.Component{
   }
 
   handleChangePassword = (event) => {
-    this.setState({password: event.target.value})
+    this.setState({password: event.target.value}) 
   }
 
 
@@ -47,7 +49,7 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.username}
-              class="username"
+              className="username"
               icon='user' 
               iconPosition='left' 
               placeholder='Username'
@@ -57,7 +59,7 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.password}
-              class="password"
+              className="password"
               icon='lock'
               iconPosition='left'
               placeholder='Password'
@@ -67,6 +69,9 @@ class LoginForm extends React.Component{
             <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
               Login
             </Button>
+            {/* <Button color='teal' fluid size='large' onClick={this.props.userLogout}>
+              Logout
+            </Button> */}
           </Segment>
         </Form>
         <Message>
@@ -90,12 +95,15 @@ const mapDispatchToProps = (dispatch) => {
     userLogin: (username, password) => {
       dispatch(userLogin(username, password))
     },
-    // registerSuccess: (userName, displayName) => {
-    //   dispatch(registerSuccess(userName, displayName))
-    // },
-    // registerFail: () => {
-    //   dispatch(registerFail())
-    // }
+    fetchUsers: (limit, offset) => {
+      dispatch(fetchUsers(limit, offset))
+    },
+    userLogout: () => {
+      dispatch(userLogout())
+    },
+    fetchMessages: () => {
+      dispatch(fetchMessages())
+    }
   }
 }
 
