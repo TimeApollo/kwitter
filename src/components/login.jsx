@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages } from './action'
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage } from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -16,6 +16,7 @@ class LoginForm extends React.Component{
     this.props.userLogin(this.state.username, this.state.password)
     this.props.fetchUsers();
     this.props.fetchMessages();
+    this.props.fetchOneMessage(337);
   }
 
   handleChangeUser = (event) => {
@@ -24,6 +25,11 @@ class LoginForm extends React.Component{
 
   handleChangePassword = (event) => {
     this.setState({password: event.target.value}) 
+  }
+
+  handleTest = () => {
+    // console.log(this.props.auth.token)
+    this.props.postMessage(this.props.auth.token, 'this is a test from TimeApollo45')
   }
 
 
@@ -69,9 +75,9 @@ class LoginForm extends React.Component{
             <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
               Login
             </Button>
-            {/* <Button color='teal' fluid size='large' onClick={this.props.userLogout}>
+            <Button color='teal' fluid size='large' onClick={this.handleTest}>
               Logout
-            </Button> */}
+            </Button>
           </Segment>
         </Form>
         <Message>
@@ -84,9 +90,9 @@ class LoginForm extends React.Component{
   }
 }
 
-// const mapStateToProps = ({isRegisterSuccess}) => ({
-//   isRegisterSuccess
-// });
+const mapStateToProps = ({auth}) => ({
+  auth
+});
 
 
 //only need to map async props here
@@ -103,8 +109,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchMessages: () => {
       dispatch(fetchMessages())
+    },
+    fetchOneMessage: (messageId) => {
+      dispatch(fetchOneMessage(messageId))
+    },
+    postMessage: (token, text) => {
+      dispatch(postMessage(token,text))
     }
   }
 }
 
-export default connect( null , mapDispatchToProps )(LoginForm)
+export default connect( mapStateToProps , mapDispatchToProps )(LoginForm)
