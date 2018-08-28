@@ -223,10 +223,27 @@ export const likeMessage = (userId, messageId) => {
     }
 }
 
-export const editProfile = (password) => {
-    return {
-        type: EDIT_PROFILE,
-        payload: password
+export const editProfile = (password, token) => (dispatch) => {
+    const header = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            "password": password
+        })
     }
+    fetch(`${api}/users`, header)
+        .then(response => response.json())
+        .then(users => {
+            dispatch(updatePasswordSuccess(users))
+        })
 }
 
+export const updatePasswordSuccess = (users) => {
+    return {
+        type: EDIT_PROFILE,
+        payload: users
+    }
+}

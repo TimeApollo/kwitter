@@ -24,6 +24,7 @@ const initialState = {
   users:{},
   userID:null,
   isRegisterSuccess: false,
+  isPasswordUpdated: false,
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
@@ -51,9 +52,10 @@ const kwitterReducer = ( state = initialState , action ) => {
         },
         messages: [],
         message: {},
-        users:{},
-        userID:null,
+        users: {},
+        userID: null,
         isRegisterSuccess: false,
+        isPasswordUpdated: false
       }
     case GET_MESSAGES:
       return {
@@ -76,6 +78,11 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         messages: newMessageArray
+      }
+    case EDIT_PROFILE:
+      return {
+        ...state,
+        isPasswordUpdated: true
       }
     default:
       return state;

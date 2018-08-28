@@ -1,17 +1,50 @@
 import React from 'react'
 import { Feed } from 'semantic-ui-react'
-import fetchMessages from "./action.js"
-
+import { connect } from "react-redux"
+import Navbar from "./navbar.jsx"
 
 class MessageFeed extends React.Component {
 
-  getMessages = () => {
-    this.props.fetchMessages(this.state.messages, this )
+  messageObject = () => {
+
+      const messageArray = this.props.messages.map ( message => {
+        return {
+          "date": message.createdAt,
+          "meta": message.likes.length,
+          "summary": message.text
+        }
+      }
+    )
+    return messageArray
   }
-  messages = []
-//layout for feed page displaying user messages or all messages. will need to put message objects into an array that we can cycle through
+  
+  render() {
+
+    const feedMessages = this.messageObject
+    return (
+      <div>
+      <Navbar></Navbar>
+      <div
+      style={{ 
+      display: "flex",
+      justifyContent: "center",
+      paddingTop: "5em",
+      paddingRight: "15em"
+    }}
+      >
+      <Feed 
+      events={this.messageObject()}/>
+      </div>
+      </div>
+    )}
+  }
+
+
+function mapStateToProps(state) {
+  return {
+    "messages": state.messages
+  }
 }
 
-const feedMessageProp = () => <Feed messages={messages} />
 
-export default feedMessageProp
+export default connect(mapStateToProps , undefined)(MessageFeed)

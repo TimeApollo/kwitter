@@ -6,16 +6,16 @@ import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
 import EditProfileForm from "./editProfile.jsx"
 import RegisterUserForm from "./register.jsx"
-// import feedMessageProp from './feed';
+import MessageFeed from './feed';
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <MessageFeed></MessageFeed>
         <RegisterUserForm></RegisterUserForm>
         <LoginForm></LoginForm>
         <EditProfileForm></EditProfileForm>
-        {/* <feedMessageProp></feedMessageProp> */}
       </React.Fragment>
     );
   }
