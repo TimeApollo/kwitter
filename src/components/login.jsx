@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage } from './action'
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike} from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -29,7 +29,11 @@ class LoginForm extends React.Component{
 
   handleTest = () => {
     // console.log(this.props.auth.token)
-    this.props.postMessage(this.props.auth.token, 'this is a test from TimeApollo45')
+    this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose, yet are we in agreeance. Guerrilla marketing table the discussion , or player-coach put a record on and see who dances horsehead offer locked and loaded. ')
+    // this.props.deleteMessage(this.props.auth.token, 350)
+    this.props.fetchOneUser(this.props.userID)
+    // this.props.likeMessage(this.props.userID,352,this.props.auth.token)
+    // this.props.deleteLike(this.props.auth.token, 329)
   }
 
 
@@ -90,9 +94,10 @@ class LoginForm extends React.Component{
   }
 }
 
-const mapStateToProps = ({auth, messages}) => ({
+const mapStateToProps = ({auth, messages, userID}) => ({
   auth, 
-  messages
+  messages,
+  userID
 });
 
 
@@ -116,6 +121,18 @@ const mapDispatchToProps = (dispatch) => {
     },
     postMessage: (token, text) => {
       dispatch(postMessage(token,text))
+    },
+    deleteMessage: (token, messageId) => {
+      dispatch(deleteMessage(token, messageId))
+    },
+    fetchOneUser: (userId) => {
+      dispatch(fetchOneUser(userId))
+    },
+    likeMessage: (userId,messageId,token) => {
+      dispatch(likeMessage(userId,messageId,token))
+    },
+    deleteLike: (token, likeId) => {
+      dispatch(deleteLike(token, likeId))
     }
   }
 }
