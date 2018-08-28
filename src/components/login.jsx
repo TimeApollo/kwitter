@@ -44,7 +44,7 @@ class LoginForm extends React.Component{
       }
     `}</style>
     <Navbar></Navbar>
-    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "100px" }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Log-in to your account
@@ -90,8 +90,9 @@ class LoginForm extends React.Component{
   }
 }
 
-const mapStateToProps = ({auth}) => ({
-  auth
+const mapStateToProps = ({auth, messages}) => ({
+  auth, 
+  messages
 });
 
 

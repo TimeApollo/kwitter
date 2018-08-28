@@ -15,20 +15,16 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 const api = 'https://kwitter-api.herokuapp.com'
 
 export const registerUser = (username, password, displayName) => (dispatch) => {
-  //this is for testing
-  username = 'TimeApollo45'
-  password = 'TimeApollo45'
-  displayName = 'TimeApollo45'
-  //
+
   const header = {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "username":username,
-      "password":password,
-      "displayName":displayName
+      "username": username,
+      "password": password,
+      "displayName": displayName
     })
   }
   fetch(`${api}/auth/register`, header)
