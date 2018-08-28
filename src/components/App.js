@@ -5,15 +5,17 @@ import './App.css';
 import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
 import EditProfileForm from "./editProfile.jsx"
-import RegisterUserPage from "./register.jsx"
+import RegisterUserForm from "./register.jsx"
+// import feedMessageProp from './feed';
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <RegisterUserForm></RegisterUserForm>
         <LoginForm></LoginForm>
-        {/* <EditProfileForm></EditProfileForm>
-        <RegisterUserPage></RegisterUserPage> */}
+        <EditProfileForm></EditProfileForm>
+        {/* <feedMessageProp></feedMessageProp> */}
       </React.Fragment>
     );
   }

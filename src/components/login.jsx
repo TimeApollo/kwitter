@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin} from './action'
+import { userLogin} from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -36,7 +36,7 @@ class LoginForm extends React.Component{
       }
     `}</style>
     <Navbar></Navbar>
-    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "100px" }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Log-in to your account
@@ -47,7 +47,6 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.username}
-              class="username"
               icon='user' 
               iconPosition='left' 
               placeholder='Username'
@@ -57,7 +56,6 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.password}
-              class="password"
               icon='lock'
               iconPosition='left'
               placeholder='Password'
