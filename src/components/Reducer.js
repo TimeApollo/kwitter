@@ -10,8 +10,11 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   GET_USERS,
+  GET_ONE_USER,
   GET_MESSAGES,
   GET_ONE_MESSAGE,
+  DELETE_MESSAGE_SUCCESS,
+  DELETE_LIKE_SUCCESS
 } from "./action"
 
 const initialState = {
@@ -21,6 +24,7 @@ const initialState = {
   },
   messages: [],
   message: {},
+  user:{},
   users:{},
   userID:null,
   isRegisterSuccess: false,
@@ -65,6 +69,11 @@ const kwitterReducer = ( state = initialState , action ) => {
         ...state,
         users: action.payload.users
       }
+    case GET_ONE_USER:
+      return {
+        ...state,
+        user: action.payload.user
+      }
     case GET_ONE_MESSAGE:
       return {
         ...state,
@@ -76,6 +85,21 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         messages: newMessageArray
+      }
+    case DELETE_MESSAGE_SUCCESS:
+      console.log(action.payload.messages)
+      const newDeletedMessageArray = state.messages.filter(message => message.id !== action.payload.messages);
+      return {
+        ...state,
+        messages: newDeletedMessageArray
+      }
+    case LIKE_MESSAGE:
+      return {
+        ...state
+      }
+    case DELETE_LIKE_SUCCESS:
+      return {
+        ...state
       }
     default:
       return state;
