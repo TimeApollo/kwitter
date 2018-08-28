@@ -82,8 +82,11 @@ const kwitterReducer = ( state = initialState , action ) => {
         message: action.payload.message,
       }
     case POST_MESSAGE:
+      const messageObj = action.payload.message;
+      console.log(messageObj)
+      messageObj['likes'] = []
       const newMessageArray = state.messages.slice()
-      newMessageArray.unshift(action.payload.message)
+      newMessageArray.unshift(messageObj)
       return {
         ...state,
         messages: newMessageArray

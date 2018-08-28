@@ -29,7 +29,7 @@ class LoginForm extends React.Component{
 
   handleTest = () => {
     // console.log(this.props.auth.token)
-    this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose, yet are we in agreeance. Guerrilla marketing table the discussion , or player-coach put a record on and see who dances horsehead offer locked and loaded. ')
+    this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose,')
     // this.props.deleteMessage(this.props.auth.token, 350)
     this.props.fetchOneUser(this.props.userID)
     // this.props.likeMessage(this.props.userID,352,this.props.auth.token)
