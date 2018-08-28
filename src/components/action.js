@@ -229,3 +229,4 @@ export const editProfile = (password) => {
         payload: password
     }
 }
+

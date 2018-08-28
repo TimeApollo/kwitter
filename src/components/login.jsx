@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { userLogin} from './action'
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage } from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -14,6 +14,9 @@ class LoginForm extends React.Component{
 
   handleSubmitLogin = () => {
     this.props.userLogin(this.state.username, this.state.password)
+    this.props.fetchUsers();
+    this.props.fetchMessages();
+    this.props.fetchOneMessage(337);
   }
 
   handleChangeUser = (event) => {
@@ -21,7 +24,12 @@ class LoginForm extends React.Component{
   }
 
   handleChangePassword = (event) => {
-    this.setState({password: event.target.value})
+    this.setState({password: event.target.value}) 
+  }
+
+  handleTest = () => {
+    // console.log(this.props.auth.token)
+    this.props.postMessage(this.props.auth.token, 'this is a test from TimeApollo45')
   }
 
 
@@ -47,6 +55,7 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.username}
+              className="username"
               icon='user' 
               iconPosition='left' 
               placeholder='Username'
@@ -56,6 +65,7 @@ class LoginForm extends React.Component{
               fluid
               required
               value= {this.state.password}
+              className="password"
               icon='lock'
               iconPosition='left'
               placeholder='Password'
@@ -64,6 +74,9 @@ class LoginForm extends React.Component{
             />
             <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
               Login
+            </Button>
+            <Button color='teal' fluid size='large' onClick={this.handleTest}>
+              Logout
             </Button>
           </Segment>
         </Form>
@@ -77,9 +90,10 @@ class LoginForm extends React.Component{
   }
 }
 
-// const mapStateToProps = ({isRegisterSuccess}) => ({
-//   isRegisterSuccess
-// });
+const mapStateToProps = ({auth, messages}) => ({
+  auth, 
+  messages
+});
 
 
 //only need to map async props here
@@ -88,13 +102,22 @@ const mapDispatchToProps = (dispatch) => {
     userLogin: (username, password) => {
       dispatch(userLogin(username, password))
     },
-    // registerSuccess: (userName, displayName) => {
-    //   dispatch(registerSuccess(userName, displayName))
-    // },
-    // registerFail: () => {
-    //   dispatch(registerFail())
-    // }
+    fetchUsers: (limit, offset) => {
+      dispatch(fetchUsers(limit, offset))
+    },
+    userLogout: () => {
+      dispatch(userLogout())
+    },
+    fetchMessages: () => {
+      dispatch(fetchMessages())
+    },
+    fetchOneMessage: (messageId) => {
+      dispatch(fetchOneMessage(messageId))
+    },
+    postMessage: (token, text) => {
+      dispatch(postMessage(token,text))
+    }
   }
 }
 
-export default connect( null , mapDispatchToProps )(LoginForm)
+export default connect( mapStateToProps , mapDispatchToProps )(LoginForm)
