@@ -13,8 +13,11 @@ class RegisterUserForm extends React.Component{
   }
 
   handleRegisterUser = () => {
+    if (this.state.password === this.state.passwordMatch) {
     this.props.registerUser(this.state.username, this.state.password, this.state.displayName, this )
-  }
+  } else {
+    alert("Passwords don't match, yo!")
+  }}
 
   handleChangeUsername = (event) => {
     this.setState({username: event.target.value})
@@ -26,8 +29,6 @@ class RegisterUserForm extends React.Component{
 
   handleChangePassword = (event) => {
     this.setState({password: event.target.value})
-    // if (this.state.password === this.state.passwordMatch) {
-    // }
   }
 
   handleChangeDisplayName = (event) => {
@@ -55,44 +56,46 @@ class RegisterUserForm extends React.Component{
           <Segment stacked>
 
             <Form.Input
-                fluid
-                required
-                value={this.state.displayName}
-                icon='user'
-                iconPosition='left'
-                placeholder='Name'
-                type="displayName"
-                onChange={this.handleChangeDisplayName}
+              fluid
+              required
+              value={this.state.displayName}
+              icon='user'
+              iconPosition='left'
+              placeholder='Name'
+              type="displayName"
+              onChange={this.handleChangeDisplayName}
             />
-                <Form.Input 
-                fluid 
-                required
-                value={this.state.username}
-                icon='user'
-                iconPosition='left' 
-                placeholder='Username' 
-                type="username"
-                onChange={this.handleChangeUsername}
-                />
-                <Form.Input
-                fluid
-                required
-                value={this.state.password}
-                icon='lock'
-                iconPosition='left'
-                placeholder='Create a password'
-                type='password'
-                onChange={this.handleChangePassword}
+
+            <Form.Input 
+              fluid 
+              required
+              value={this.state.username}
+              icon='user'
+              iconPosition='left' 
+              placeholder='Username' 
+              type="username"
+              onChange={this.handleChangeUsername}
             />
-                <Form.Input
-                fluid
-                required
-                value={this.state.passwordMatch}
-                icon='lock'
-                iconPosition='left'
-                placeholder='Re-enter Password'
-                type='password'
-                onChange={this.handleChangePasswordMatch}
+
+            <Form.Input
+              fluid
+              required
+              value={this.state.password}
+              icon='lock'
+              iconPosition='left'
+              placeholder='Create a password'
+              type='password'
+              onChange={this.handleChangePassword}
+            />
+
+            <Form.Input
+              fluid
+              required
+              value={this.state.passwordMatch}
+              icon='lock'
+              iconPosition='left'
+              placeholder='Re-enter Password'
+              onChange={this.handleChangePasswordMatch}
             />
             <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
               Register User
@@ -119,13 +122,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     registerUser: (username, password, displayName) => {
       dispatch(registerUser(username, password, displayName))
-    },
-    // registerSuccess: (userName, displayName) => {
-    //   dispatch(registerSuccess(userName, displayName))
-    // },
-    // registerFail: () => {
-    //   dispatch(registerFail())
-    // }
+    }
   }
 }
 

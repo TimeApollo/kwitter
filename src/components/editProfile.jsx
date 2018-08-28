@@ -9,19 +9,13 @@ import Navbar from "./navbar.jsx"
 class EditProfileForm extends React.Component{
 
   state = {
-    username: "",
-    oldPassword: "",
     password: "",
     passwordMatch: "",
   }
   //click handler
 
   handleSubmitProfile = () => {
-    this.props.userLogin(this.state.username, this.state.password, this )
-  }
-
-  handleChangeUser = (event) => {
-    this.setState({username: event.target.value})
+    this.props.editProfile( this.state.password, this )
   }
   //need to have condition that password matches password stored on api 
   //then must check that two new passwords match and then submit that to api
@@ -33,10 +27,6 @@ class EditProfileForm extends React.Component{
 
   handleChangePasswordMatch = (event) => {
     this.setState({passwordMatch: event.target.value})
-  }
-
-  handleChangeOldPassword = (event) => {
-    this.setState({oldPassword: event.target.value})
   }
 
   render(){
@@ -57,25 +47,6 @@ class EditProfileForm extends React.Component{
         </Header>
         <Form size='large'>
           <Segment stacked>
-          <Form.Input
-              fluid
-              required
-              value= {this.state.username}
-              icon='user' 
-              iconPosition='left' 
-              placeholder='Username'
-              onChange={this.handleChangeUser}
-              />
-            <Form.Input
-              fluid
-              required
-              value= {this.state.oldPassword}
-              icon='lock' 
-              iconPosition='left' 
-              placeholder='Old password'
-              type="password"
-              onChange={this.handleChangeOldPassword}
-              />
             <Form.Input
               fluid
               required
