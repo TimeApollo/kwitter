@@ -19,6 +19,9 @@ class RegisterUserForm extends React.Component{
     alert("Passwords don't match, yo!")
   }}
 
+  handleChangeDisplayName = (event) => {
+    this.setState({displayName: event.target.value})
+  }
   handleChangeUsername = (event) => {
     this.setState({username: event.target.value})
   }
@@ -30,11 +33,6 @@ class RegisterUserForm extends React.Component{
   handleChangePassword = (event) => {
     this.setState({password: event.target.value})
   }
-
-  handleChangeDisplayName = (event) => {
-    this.setState({displayName: event.target.value})
-  }
-
 
   render(){
     return (

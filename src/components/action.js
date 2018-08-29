@@ -1,18 +1,17 @@
 export const POST_MESSAGE = "POST_MESSAGE";
-export const DELETE_MESSAGE_SUCCESS = "DELETE_MESSAGE";
+export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const LIKE_MESSAGE = "LIKE_MESSAGE";
-export const DELETE_LIKE_SUCCESS = "DELETE_LIKE_SUCCESS";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL"
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
 export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_USERS = "GET_USERS";
-export const GET_ONE_USER = "GET_ONE_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const GET_ONE_MESSAGE = "GET_ONE_MESSAGE"
 export const REGISTER_SUCCESS = 'REGISTER_COMPLETE';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+
 
 const api = 'https://kwitter-api.herokuapp.com'
 
@@ -26,7 +25,7 @@ export const registerUser = (username, password, displayName) => (dispatch) => {
     body: JSON.stringify({
       "username": username,
       "password": password,
-      "displayName": displayName,
+      "displayName": displayName
     })
   }
   fetch(`${api}/auth/register`, header)
@@ -147,21 +146,6 @@ export const getUsers = (users) => {
   }
 }
 
-export const fetchOneUser = (userId) => dispatch => {
-  fetch(`${api}/users/${userId}`)
-    .then(response => response.json())
-    .then(user => {
-      dispatch(getOneUser(user))
-    })
-}
-
-export const getOneUser = (user) => {
-  return {
-    type: GET_ONE_USER,
-    payload: user
-  }
-}
-
 export const fetchMessages = () => (dispatch) => {
   fetch(`${api}/messages`)
     .then(response => response.json())
@@ -218,82 +202,26 @@ export const postMessageSuccess = (message) => {
     }
 }
 
-export const deleteMessage = (token, messageId) => dispatch => {
-
-  const header = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  }
-
-  fetch(`${api}/messages/${messageId}`, header)
-    .then(response => response.json())
-    .then(delResponse => {
-      console.log(delResponse)
-      dispatch(deleteMessageSuccess(delResponse))
-    })
-}
-
 //needs to refer to user id and message id
-export const deleteMessageSuccess = (messages) => {
+export const deleteMessage = (userId, messageId) => {
     return {
-        type: DELETE_MESSAGE_SUCCESS, 
-        payload: messages
+        type: DELETE_MESSAGE, 
+        payload: {
+            userId, 
+            messageId
+        }
     }
-}
-
-export const likeMessage = (userId,messageId,token) => dispatch => {
-  const header = {
-    method: "POST",
-    headers: {
-      "Content-Type":"application/json",
-      "Authorization":`Bearer ${token}`
-    },
-    body: JSON.stringify({
-      "userId": userId,
-      "messageId": messageId
-    })
-  }
-  
-  fetch(`${api}/likes/`,header)
-    .then(response => response.json())
-    .then(likeObj => {
-      console.log(likeObj)
-      dispatch(likeMessageSuccess(likeObj))
-    })
 }
 
 // need to record user id and message id
-export const likeMessageSuccess = (likeObj) => {
-  return {
-    type: LIKE_MESSAGE, 
-    payload: likeObj
-  }
-}
-
-export const deleteLike = ( token, likeId ) => dispatch => {
-  const header = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+export const likeMessage = (userId, messageId) => {
+    return {
+        type: LIKE_MESSAGE, 
+        payload: {
+            userId,
+            messageId
+        }
     }
-  }
-
-  fetch(`${api}/likes/${likeId}`,header)
-    .then(response => response.json())
-    .then(like => {
-      console.log(like)
-      dispatch(deleteLikeSuccess())
-    })
-}
-
-export const deleteLikeSuccess = () => {
-  return {
-    type: DELETE_LIKE_SUCCESS,
-  }
 }
 
 export const editProfile = (password, token) => (dispatch) => {

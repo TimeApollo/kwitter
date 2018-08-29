@@ -20,9 +20,8 @@ class EditProfileForm extends React.Component{
   //need to have condition that password matches password stored on api 
   //then must check that two new passwords match and then submit that to api
   handleChangePassword = (event) => {
-    if (this.state.newPassword === this.state.passwordMatch) {
-      this.setState({password: event.target.value})
-    }
+       this.setState({password: event.target.value})
+
   }
 
   handleChangePasswordMatch = (event) => {

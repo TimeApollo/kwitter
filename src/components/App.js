@@ -7,6 +7,7 @@ import LoginForm from "./login.jsx"
 import EditProfileForm from "./editProfile.jsx"
 import RegisterUserForm from "./register.jsx"
 import MessageFeed from './feed';
+import Message from "./messsage.jsx"
 
 class App extends Component {
   render() {
