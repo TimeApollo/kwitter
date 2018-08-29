@@ -1,6 +1,5 @@
 import {
   POST_MESSAGE,
-  DELETE_MESSAGE,
   LIKE_MESSAGE,
   USER_LOGOUT_FAIL,
   USER_LOGOUT_SUCCESS,
@@ -14,7 +13,8 @@ import {
   GET_MESSAGES,
   GET_ONE_MESSAGE,
   DELETE_MESSAGE_SUCCESS,
-  DELETE_LIKE_SUCCESS
+  DELETE_LIKE_SUCCESS,
+  DELETE_USER_SUCCESS
 } from "./action"
 
 const initialState = {
@@ -110,6 +110,20 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         isPasswordUpdated: true
+      }
+    case DELETE_USER_SUCCESS:
+      return {
+        auth: {
+          token: null,
+          isLoginSuccess: false
+        },
+        messages: [],
+        message: {},
+        user:{},
+        users:{},
+        userID:null,
+        isRegisterSuccess: false,
+        isPasswordUpdated: false,
       }
     default:
       return state;

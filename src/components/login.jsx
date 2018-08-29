@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike} from './action'
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike , deleteUser} from './action'
 import Navbar from "./navbar.jsx"
 
 class LoginForm extends React.Component{
@@ -29,11 +29,12 @@ class LoginForm extends React.Component{
 
   handleTest = () => {
     // console.log(this.props.auth.token)
-    this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose,')
+    // this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose,')
     // this.props.deleteMessage(this.props.auth.token, 350)
     this.props.fetchOneUser(this.props.userID)
     // this.props.likeMessage(this.props.userID,352,this.props.auth.token)
     // this.props.deleteLike(this.props.auth.token, 329)
+    // this.props.deleteUser(this.props.auth.token)
   }
 
 
@@ -133,6 +134,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteLike: (token, likeId) => {
       dispatch(deleteLike(token, likeId))
+    },
+    deleteUser: (token) => {
+      dispatch(deleteUser(token))
     }
   }
 }

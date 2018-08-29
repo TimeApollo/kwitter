@@ -27,8 +27,12 @@ const mapStateToProps = (state) => ({
     success: state.auth.success
   },
   messages: state.messages,
+  message: state.message,
   user:state.user,
-  isRegisterSuccess: state.isRegisterSuccess
+  users:state.users,
+  userID: state.userID,
+  isRegisterSuccess: state.isRegisterSuccess,
+  isPasswordUpdated: state.isPasswordUpdated,
 });
 
 const mapDispatchToProps = (dispatch) => {
