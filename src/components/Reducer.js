@@ -1,6 +1,5 @@
 import {
   POST_MESSAGE,
-  DELETE_MESSAGE,
   LIKE_MESSAGE,
   USER_LOGOUT_FAIL,
   USER_LOGOUT_SUCCESS,
@@ -14,7 +13,8 @@ import {
   GET_MESSAGES,
   GET_ONE_MESSAGE,
   DELETE_MESSAGE_SUCCESS,
-  DELETE_LIKE_SUCCESS
+  DELETE_LIKE_SUCCESS,
+  DELETE_USER_SUCCESS
 } from "./action"
 
 const initialState = {
@@ -82,8 +82,11 @@ const kwitterReducer = ( state = initialState , action ) => {
         message: action.payload.message,
       }
     case POST_MESSAGE:
+      const messageObj = action.payload.message;
+      console.log(messageObj)
+      messageObj['likes'] = []
       const newMessageArray = state.messages.slice()
-      newMessageArray.unshift(action.payload.message)
+      newMessageArray.unshift(messageObj)
       return {
         ...state,
         messages: newMessageArray
@@ -107,6 +110,20 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         isPasswordUpdated: true
+      }
+    case DELETE_USER_SUCCESS:
+      return {
+        auth: {
+          token: null,
+          isLoginSuccess: false
+        },
+        messages: [],
+        message: {},
+        user:{},
+        users:{},
+        userID:null,
+        isRegisterSuccess: false,
+        isPasswordUpdated: false,
       }
     default:
       return state;
