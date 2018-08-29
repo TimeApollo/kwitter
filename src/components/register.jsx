@@ -9,15 +9,17 @@ class RegisterUserForm extends React.Component{
   state = {
     displayName: "",
     username: "",
-    password: ""
+    password: "",
+    passwordMatch: "",
   }
 
   handleRegisterUser = () => {
     if (this.state.password === this.state.passwordMatch) {
-    this.props.registerUser(this.state.username, this.state.password, this.state.displayName, this )
-  } else {
-    alert("Passwords don't match, yo!")
-  }}
+      this.props.registerUser(this.state.username, this.state.password, this.state.displayName, this )
+    } else {
+      alert("Passwords don't match, yo!")
+    }
+  }
 
   handleChangeDisplayName = (event) => {
     this.setState({displayName: event.target.value})
@@ -32,6 +34,10 @@ class RegisterUserForm extends React.Component{
 
   handleChangePassword = (event) => {
     this.setState({password: event.target.value})
+  }
+
+  handleChangeDisplayName = (event) => {
+    this.setState({displayName: event.target.value})
   }
 
   render(){
@@ -93,9 +99,10 @@ class RegisterUserForm extends React.Component{
               icon='lock'
               iconPosition='left'
               placeholder='Re-enter Password'
+              type='password'
               onChange={this.handleChangePasswordMatch}
             />
-            <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
+            <Button color='teal' fluid size='large' onClick={this.handleRegisterUser}>
               Register User
             </Button>
           </Segment>

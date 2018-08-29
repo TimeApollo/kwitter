@@ -11,6 +11,7 @@ export const GET_MESSAGES = "GET_MESSAGES";
 export const GET_ONE_MESSAGE = "GET_ONE_MESSAGE"
 export const REGISTER_SUCCESS = 'REGISTER_COMPLETE';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
 
 
 const api = 'https://kwitter-api.herokuapp.com'
@@ -247,4 +248,26 @@ export const updatePasswordSuccess = (users) => {
         type: EDIT_PROFILE,
         payload: users
     }
+}
+
+export const deleteUser = (token) => dispatch => {
+  const header = {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }
+
+  fetch(`${api}/users`, header)
+    .then(response => response.json())
+    .then(isDeleted => {
+      console.log(isDeleted)
+      dispatch(userDeletedSuccess())
+    })
+}
+
+export const userDeletedSuccess = () => {
+  return {
+    type:  DELETE_USER_SUCCESS
+  }
 }
