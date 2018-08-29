@@ -41,18 +41,18 @@ class MessageFeed extends React.Component {
     const feedMessages = this.messageObject
     return (
       <div>
-      <Navbar></Navbar>
-      <div
-      style={{ 
-      display: "flex",
-      justifyContent: "center",
-      paddingTop: "5em",
-    }}
+        <Navbar></Navbar>
+        <div
+          style={{ 
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "5em",
+          }}
       >
-      <Feed 
-      events={this.messageObject()}/>
-
-      </div>
+        <Feed 
+        events={this.messageObject()}
+        />
+        </div>
       </div>
     )}
   }
