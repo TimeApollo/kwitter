@@ -8,12 +8,14 @@ import EditProfileForm from "./editProfile.jsx";
 import RegisterUserForm from "./register.jsx";
 import MessageFeed from './feed';
 import Profile from './profile';
+import Message from "./message"
 
 class App extends Component {
   render() {
     return (
       // <React.Fragment>
       //   <MessageFeed></MessageFeed>
+      //   <Message></Message>
       //   <RegisterUserForm></RegisterUserForm>
       //   <LoginForm></LoginForm>
       //   <EditProfileForm></EditProfileForm>

@@ -8,7 +8,11 @@ render() {
     return (
         <div className="navbar">
             <nav style={{display: "flex", justifyContent: "center"}}>
-                <img className="banner" src={require("../kwitterLogoFlare.png")}/>
+                <img 
+                    className="banner" 
+                    src={require("../kwitterLogoFlare.png")}
+                    style={{marginBottom: "5em"}}
+                    />
             </nav>
         </div>
     )}
