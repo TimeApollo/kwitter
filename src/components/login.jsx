@@ -1,8 +1,9 @@
-import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import {connect } from 'react-redux'
-import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike , deleteUser} from './action'
-import Navbar from "./navbar.jsx"
+import React from 'react';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike , deleteUser} from './action';
+import Navbar from "./navbar.jsx";
 
 class LoginForm extends React.Component{
   
@@ -14,9 +15,16 @@ class LoginForm extends React.Component{
 
   handleSubmitLogin = () => {
     this.props.userLogin(this.state.username, this.state.password)
-    this.props.fetchUsers();
-    this.props.fetchMessages();
-    this.props.fetchOneMessage(337);
+      .then(()=> {
+        if(this.props.auth.isLoginSuccess){
+          this.props.changeRoute('/messages')
+        }else{
+          this.props.changeRoute('/register')
+        }
+      })
+    // this.props.fetchOneMessage(337);
+    // this.props.fetchUsers();
+    // this.props.fetchMessages();
   }
 
   handleChangeUser = (event) => {
@@ -106,7 +114,7 @@ const mapStateToProps = ({auth, messages, userID}) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     userLogin: (username, password) => {
-      dispatch(userLogin(username, password))
+      return dispatch(userLogin(username, password))
     },
     fetchUsers: (limit, offset) => {
       dispatch(fetchUsers(limit, offset))
@@ -137,6 +145,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteUser: (token) => {
       dispatch(deleteUser(token))
+    },
+    changeRoute: (route) => {
+      dispatch(push(route));
     }
   }
 }
