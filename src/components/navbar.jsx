@@ -11,7 +11,7 @@ render() {
                 <img 
                     className="banner" 
                     src={require("../kwitterLogoFlare.png")}
-                    style={{marginBottom: "5em"}}
+                    style={{marginBottom: "4em"}}
                     />
             </nav>
         </div>
