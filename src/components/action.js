@@ -74,12 +74,13 @@ export const userLogin = (username , password) => (dispatch) => {
   }
   
   
-  fetch(`${api}/auth/login`, header)
+  return fetch(`${api}/auth/login`, header)
     .then(response => response.json())
     .then(loginResponse => {
         //add code to push to new URL after this fetch is completed so that it goes to profile page
       console.log(loginResponse)
       dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
+        .then(()=> console.log('I got this'))
     }).catch(error => dispatch(registerFail()))
   
 }
