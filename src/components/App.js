@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
 import { withRouter , Switch , Route , Link} from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import './App.css';
-import { registerUser , registerSuccess , registerFail } from './action'
-import LoginForm from "./login.jsx"
-// import EditProfileForm from "./editProfile.jsx"
-// import RegisterUserForm from "./register.jsx"
+import { registerUser , registerSuccess , registerFail } from './action';
+import LoginForm from "./login.jsx";
+import EditProfileForm from "./editProfile.jsx";
+import RegisterUserForm from "./register.jsx";
+import MessageFeed from './feed';
+import Profile from './profile';
 import Message from "./message"
 
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-        {/* <RegisterUserForm></RegisterUserForm> */}
-        <Message></Message>
-        {/* <LoginForm></LoginForm> */}
-        {/* <EditProfileForm></EditProfileForm> */}
-      </React.Fragment>
-      
       // <React.Fragment>
       //   <MessageFeed></MessageFeed>
+      //   <Message></Message>
       //   <RegisterUserForm></RegisterUserForm>
       //   <LoginForm></LoginForm>
       //   <EditProfileForm></EditProfileForm>
       // </React.Fragment>
-      // <Switch>
-      //   <Route exact path='/' component={LoginForm}/>
-      //   <Route path='/register' component={RegisterUserForm}/>
-      //   <Route path='/messages' component={MessageFeed}/>
-      // </Switch>
+      <Switch>
+        <Route exact path='/' component={LoginForm}/>
+        <Route path='/register' component={RegisterUserForm}/>
+        <Route path='/messages' component={MessageFeed}/>
+        <Route path='/home' component={Profile}/>
+      </Switch>
     );
   }
 }

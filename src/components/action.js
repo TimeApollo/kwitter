@@ -1,9 +1,13 @@
+import { push } from 'connected-react-router';
+
 export const POST_MESSAGE = "POST_MESSAGE";
 export const DELETE_MESSAGE_SUCCESS = "DELETE_MESSAGE";
 export const LIKE_MESSAGE = "LIKE_MESSAGE";
 export const DELETE_LIKE_SUCCESS = "DELETE_LIKE_SUCCESS";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
-export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL"
+export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
+export const IS_LOGGING_IN = "IS_LOGGING_IN";
+export const ROUTING_TO_REGISTER_PAGE = "ROUTING_TO_REGISTER_PAGE";
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
 export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
@@ -61,7 +65,7 @@ export const userLogin = (username , password) => (dispatch) => {
 //    username = 'TimeApollo45'
 //    password = 'TimeApollo45'
 //    //
-
+  dispatch(isLoggingIn());
   const header = {
     method: "POST",
     headers: {
@@ -74,14 +78,18 @@ export const userLogin = (username , password) => (dispatch) => {
   }
   
   
-  return fetch(`${api}/auth/login`, header)
+  fetch(`${api}/auth/login`, header)
     .then(response => response.json())
     .then(loginResponse => {
         //add code to push to new URL after this fetch is completed so that it goes to profile page
       console.log(loginResponse)
-      dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
-        .then(()=> console.log('I got this'))
-    }).catch(error => dispatch(registerFail()))
+      if( loginResponse.success ){
+        dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
+        dispatch(push('/home'))
+      }else{
+        dispatch(userLoginFail())
+      }
+    }).catch(error => dispatch(userLoginFail()))
   
 }
 
@@ -99,6 +107,18 @@ export const userLoginSuccess = (token, success, userID) => {
 export const userLoginFail = () => {
   return {
     type: USER_LOGIN_FAIL
+  }
+}
+
+export const isLoggingIn = () => {
+  return {
+    type: IS_LOGGING_IN
+  }
+}
+
+export const clickedRegisterLink = () => {
+  return {
+    type: ROUTING_TO_REGISTER_PAGE
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import {connect } from 'react-redux'
 import { registerUser } from './action'
 import Navbar from "./navbar.jsx"
@@ -108,7 +109,7 @@ class RegisterUserForm extends React.Component{
           </Segment>
         </Form>
         <Message>
-          Already a member? <a href='#'>Login</a>
+          Already a member? <Link to='/'>Login</Link>
         </Message>
       </Grid.Column>
     </Grid>
