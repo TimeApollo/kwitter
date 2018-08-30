@@ -17,11 +17,11 @@ function mapStateToProps({auth}) {
         "token": auth.token
     }
 }
-function mapDispatchToProps = (dispatch) => {
-    return {
+// function mapDispatchToProps = (dispatch) => {
+//     return {
         
-    }
-}
+//     }
+// }
 
 
 
