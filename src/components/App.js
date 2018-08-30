@@ -15,17 +15,17 @@ class App extends Component {
     return (
       // <React.Fragment>
       //   <MessageFeed></MessageFeed>
-        <Message></Message>
+        // <Message></Message>
       //   <RegisterUserForm></RegisterUserForm>
       //   <LoginForm></LoginForm>
       //   <EditProfileForm></EditProfileForm>
       // </React.Fragment>
-      // <Switch>
-      //   <Route exact path='/' component={LoginForm}/>
-      //   <Route path='/register' component={RegisterUserForm}/>
-      //   <Route path='/messages' component={MessageFeed}/>
-      //   <Route path='/home' component={Profile}/>
-      // </Switch>
+      <Switch>
+        <Route exact path='/' component={LoginForm}/>
+        <Route path='/register' component={RegisterUserForm}/>
+        <Route path='/messages' component={MessageFeed}/>
+        <Route path='/home' component={Profile}/>
+      </Switch>
     );
   }
 }
