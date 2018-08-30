@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import { registerUser , registerSuccess , registerFail, userLogin , fetchUsers , userLogout , fetchMessages , postMessage , fetchOneMessage , deleteMessage , fetchOneUser , likeMessage , deleteLike , deleteUser} from './action';
+import { userLogin , clickedRegisterLink } from './action';
 import Navbar from "./navbar.jsx";
 
 class LoginForm extends React.Component{
@@ -11,20 +11,9 @@ class LoginForm extends React.Component{
     username: "",
     password: ""
   }
-  //click handler
 
   handleSubmitLogin = () => {
     this.props.userLogin(this.state.username, this.state.password)
-      .then(()=> {
-        if(this.props.auth.isLoginSuccess){
-          this.props.changeRoute('/messages')
-        }else{
-          this.props.changeRoute('/register')
-        }
-      })
-    // this.props.fetchOneMessage(337);
-    // this.props.fetchUsers();
-    // this.props.fetchMessages();
   }
 
   handleChangeUser = (event) => {
@@ -34,71 +23,66 @@ class LoginForm extends React.Component{
   handleChangePassword = (event) => {
     this.setState({password: event.target.value}) 
   }
-
-  handleTest = () => {
-    // console.log(this.props.auth.token)
-    // this.props.postMessage(this.props.auth.token, 'Design thinking we need a recap by eod, cob or whatever comes first hit the ground running drink from the firehose,')
-    // this.props.deleteMessage(this.props.auth.token, 350)
-    this.props.fetchOneUser(this.props.userID)
-    // this.props.likeMessage(this.props.userID,352,this.props.auth.token)
-    // this.props.deleteLike(this.props.auth.token, 329)
-    // this.props.deleteUser(this.props.auth.token)
+  
+  handleRegisterRouteChange = () => {
+    this.props.clickedRegisterLink()
   }
-
-
+  
   render(){
+
+    let loginFail = <Segment raised>Username and Password do not match. If you are new, please register by hitting the register below. If you have forgotten your password, you are shit out of luck. We have no recovery system.</Segment>
+        
+
     return (
-<div className='login-form'>
-    <style> {`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}</style>
-    <Navbar></Navbar>
-    <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "100px" }}>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Log-in to your account
-        </Header>
-        <Form size='large'>
-          <Segment stacked>
-            <Form.Input
-              fluid
-              required
-              value= {this.state.username}
-              className="username"
-              icon='user' 
-              iconPosition='left' 
-              placeholder='Username'
-              onChange= {this.handleChangeUser}
-              />
-            <Form.Input
-              fluid
-              required
-              value= {this.state.password}
-              className="password"
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              onChange= {this.handleChangePassword}
-            />
-            <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
-              Login
-            </Button>
-            <Button color='teal' fluid size='large' onClick={this.handleTest}>
-              Logout
-            </Button>
-          </Segment>
-        </Form>
-        <Message>
-          New to us? <a href='#'>Register</a>
-        </Message>
-      </Grid.Column>
-    </Grid>
-  </div>
+      <div className='login-form'>
+        <style> {`
+          body > div,
+          body > div > div,
+          body > div > div > div.login-form {
+            height: 100%;
+          }
+        `}</style>
+        <Navbar></Navbar>
+        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "5em" }}>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            { this.props.auth.isLoginFail ? loginFail : null }
+            <Header as='h2' color='teal' textAlign='center'>
+              <Image src="logo.ico" />Log-in to your account
+            </Header>
+            <Form size='large'>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  required
+                  value= {this.state.username}
+                  className="username"
+                  icon='user' 
+                  iconPosition='left' 
+                  placeholder='Username'
+                  onChange= {this.handleChangeUser}
+                  />
+                <Form.Input
+                  fluid
+                  required
+                  value= {this.state.password}
+                  className="password"
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  type='password'
+                  onChange= {this.handleChangePassword}
+                />
+                <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
+                  Login
+                </Button>
+              </Segment>
+            </Form>
+            <Message>
+              New to us? <Link to='/register' onClick={this.handleRegisterRouteChange}>Register</Link>
+            </Message>
+          </Grid.Column>
+        </Grid>
+      </div>
     )
   }
 }
@@ -109,46 +93,14 @@ const mapStateToProps = ({auth, messages, userID}) => ({
   userID
 });
 
-
-//only need to map async props here
 const mapDispatchToProps = (dispatch) => {
   return {
     userLogin: (username, password) => {
-      return dispatch(userLogin(username, password))
+      dispatch(userLogin(username, password))
     },
-    fetchUsers: (limit, offset) => {
-      dispatch(fetchUsers(limit, offset))
+    clickedRegisterLink: () => {
+      dispatch(clickedRegisterLink());
     },
-    userLogout: () => {
-      dispatch(userLogout())
-    },
-    fetchMessages: () => {
-      dispatch(fetchMessages())
-    },
-    fetchOneMessage: (messageId) => {
-      dispatch(fetchOneMessage(messageId))
-    },
-    postMessage: (token, text) => {
-      dispatch(postMessage(token,text))
-    },
-    deleteMessage: (token, messageId) => {
-      dispatch(deleteMessage(token, messageId))
-    },
-    fetchOneUser: (userId) => {
-      dispatch(fetchOneUser(userId))
-    },
-    likeMessage: (userId,messageId,token) => {
-      dispatch(likeMessage(userId,messageId,token))
-    },
-    deleteLike: (token, likeId) => {
-      dispatch(deleteLike(token, likeId))
-    },
-    deleteUser: (token) => {
-      dispatch(deleteUser(token))
-    },
-    changeRoute: (route) => {
-      dispatch(push(route));
-    }
   }
 }
 

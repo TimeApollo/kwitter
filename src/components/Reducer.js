@@ -8,6 +8,8 @@ import {
   REGISTER_FAIL,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
+  IS_LOGGING_IN,
+  ROUTING_TO_REGISTER_PAGE,
   GET_USERS,
   GET_ONE_USER,
   GET_MESSAGES,
@@ -20,7 +22,9 @@ import {
 const initialState = {
   auth: {
     token: null,
-    isLoginSuccess: false
+    isLoginSuccess: false,
+    isLoginFail: false,
+    isLoggingIn: false,
   },
   messages: [],
   message: {},
@@ -45,7 +49,39 @@ const kwitterReducer = ( state = initialState , action ) => {
         userID:action.payload.userID,
         auth: {
           token: action.payload.token,
-          isLoginSuccess: action.payload.isLoginSuccess,
+          isLoginSuccess: true,
+          isLoginFail: false,
+          isLoggingIn: false,
+        }
+      }
+    case USER_LOGIN_FAIL:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isLoginSuccess: false,
+          isLoginFail: true,
+          isLoggingIn: false,
+        }
+      }
+    case IS_LOGGING_IN:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          isLoginSuccess: false,
+          isLoginFail: false,
+          isLoggingIn: true,
+        }
+      }
+    case ROUTING_TO_REGISTER_PAGE:
+      return {
+        ...state,
+        auth: {
+          token: null,
+          isLoginSuccess: false,
+          isLoginFail: false,
+          isLoggingIn: false,
         }
       }
     case USER_LOGOUT_SUCCESS:

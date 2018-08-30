@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter , Switch , Route , Link} from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import './App.css';
-import { registerUser , registerSuccess , registerFail } from './action'
-import LoginForm from "./login.jsx"
-import EditProfileForm from "./editProfile.jsx"
-import RegisterUserForm from "./register.jsx"
-// import MessageFeed from './feed';
-import MessageComponent from "./messsage.jsx"
+import { registerUser , registerSuccess , registerFail } from './action';
+import LoginForm from "./login.jsx";
+import EditProfileForm from "./editProfile.jsx";
+import RegisterUserForm from "./register.jsx";
+import MessageFeed from './feed';
+import Profile from './profile';
 
 class App extends Component {
   render() {
@@ -22,6 +22,7 @@ class App extends Component {
         <Route exact path='/' component={LoginForm}/>
         <Route path='/register' component={RegisterUserForm}/>
         <Route path='/messages' component={MessageFeed}/>
+        <Route path='/home' component={Profile}/>
       </Switch>
     );
   }
