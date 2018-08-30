@@ -21,6 +21,9 @@ class RegisterUserForm extends React.Component{
     }
   }
 
+  handleChangeDisplayName = (event) => {
+    this.setState({displayName: event.target.value})
+  }
   handleChangeUsername = (event) => {
     this.setState({username: event.target.value})
   }

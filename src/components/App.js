@@ -6,13 +6,14 @@ import { registerUser , registerSuccess , registerFail } from './action'
 import LoginForm from "./login.jsx"
 import EditProfileForm from "./editProfile.jsx"
 import RegisterUserForm from "./register.jsx"
-import MessageFeed from './feed';
+// import MessageFeed from './feed';
+import MessageComponent from "./messsage.jsx"
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <MessageFeed></MessageFeed>
+        <MessageComponent></MessageComponent>
         <RegisterUserForm></RegisterUserForm>
         <LoginForm></LoginForm>
         <EditProfileForm></EditProfileForm>

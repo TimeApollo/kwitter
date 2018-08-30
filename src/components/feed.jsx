@@ -1,17 +1,36 @@
 import React from 'react'
-import { Feed } from 'semantic-ui-react'
+import { Feed, Divider } from 'semantic-ui-react'
 import { connect } from "react-redux"
 import Navbar from "./navbar.jsx"
 
 class MessageFeed extends React.Component {
 
+
+  formatPostDate = (date) => {
+
+    const months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    let monthIndex = parseInt(date.substring(5, 7))
+
+    let time = date.substring(11,19)
+
+    let day = date.substring(8, 9)
+
+    let year = date.substring(0, 4)
+
+    return months[monthIndex] + " " +  day + ", "+ year + " at " + time
+}
+
+
   messageObject = () => {
+
 
       const messageArray = this.props.messages.map ( message => {
         return {
-          "date": message.createdAt,
-          "meta": message.likes.length,
-          "summary": message.text
+          "date": this.formatPostDate(message.createdAt),
+          "image": "../avatarAvatar.png",
+          "meta": "likes " + message.likes.length,
+          "summary": message.text,
         }
       }
     )
@@ -23,18 +42,18 @@ class MessageFeed extends React.Component {
     const feedMessages = this.messageObject
     return (
       <div>
-      <Navbar></Navbar>
-      <div
-      style={{ 
-      display: "flex",
-      justifyContent: "center",
-      paddingTop: "5em",
-      paddingRight: "15em"
-    }}
+        <Navbar></Navbar>
+        <div
+          style={{ 
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "5em",
+          }}
       >
-      <Feed 
-      events={this.messageObject()}/>
-      </div>
+        <Feed 
+        events={this.messageObject()}
+        />
+        </div>
       </div>
     )}
   }
