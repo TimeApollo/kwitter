@@ -40,7 +40,11 @@ const mapStateToProps = (state) => ({
   user:state.user,
   users:state.users,
   userID: state.userID,
-  isRegisterSuccess: state.isRegisterSuccess,
+  register:{
+    isRegisterSuccess: state.isRegisterSuccess,
+    isRegisteringUser: state.isRegisteringUser,
+    isRegisterFail: state.isRegisterFail,
+  },
   isPasswordUpdated: state.isPasswordUpdated,
 });
 

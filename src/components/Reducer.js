@@ -31,17 +31,23 @@ const initialState = {
   user:{},
   users:{},
   userID:null,
-  isRegisterSuccess: false,
+  register:{
+    isRegisterSuccess: false,
+    isRegisterFail: false,
+    isRegisteringUser: false,
+  },
   isPasswordUpdated: false,
 }
 
 const kwitterReducer = ( state = initialState , action ) => {
   switch (action.type){
     case REGISTER_SUCCESS:
-      console.log('i made it here')
       return {
         ...state,
-        isRegisterSuccess: true,
+        register:{
+          ...state.register,
+          isRegisterSuccess: true,
+        }
       }
     case USER_LOGIN_SUCCESS:
       return {
@@ -67,6 +73,10 @@ const kwitterReducer = ( state = initialState , action ) => {
     case IS_LOGGING_IN:
       return {
         ...state,
+        register:{
+          ...state.register,
+          isRegisterSuccess: false,
+        },
         auth: {
           ...state.auth,
           isLoginSuccess: false,

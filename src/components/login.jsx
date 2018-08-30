@@ -43,7 +43,7 @@ class LoginForm extends React.Component{
           }
         `}</style>
         <Navbar></Navbar>
-        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "5em" }}>
+        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
           <Grid.Column style={{ maxWidth: 450 }}>
             { this.props.auth.isLoginFail ? loginFail : null }
             <Header as='h2' color='teal' textAlign='center'>
@@ -87,10 +87,8 @@ class LoginForm extends React.Component{
   }
 }
 
-const mapStateToProps = ({auth, messages, userID}) => ({
-  auth, 
-  messages,
-  userID
+const mapStateToProps = ({auth}) => ({
+  auth
 });
 
 const mapDispatchToProps = (dispatch) => {
