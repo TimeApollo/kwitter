@@ -50,7 +50,12 @@ class LoginForm extends React.Component{
               <Image src="logo.ico" />Log-in to your account
             </Header>
             <Form size='large'>
-              <Segment stacked>
+              <Segment 
+                stacked         
+                style={{
+                  border:"2px solid", 
+                  borderColor: "rgb(65, 118, 115)",
+              }}>
                 <Form.Input
                   fluid
                   required
@@ -60,6 +65,10 @@ class LoginForm extends React.Component{
                   iconPosition='left' 
                   placeholder='Username'
                   onChange= {this.handleChangeUser}
+                  style={{
+                    border:"1px solid", 
+                    borderColor: "rgb(65, 118, 115)",
+                    }}
                   />
                 <Form.Input
                   fluid
@@ -71,14 +80,29 @@ class LoginForm extends React.Component{
                   placeholder='Password'
                   type='password'
                   onChange= {this.handleChangePassword}
+                  style={{
+                    border:"1px solid", 
+                    borderColor: "rgb(65, 118, 115)",
+                    }}
                 />
                 <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
                   Login
                 </Button>
               </Segment>
             </Form>
-            <Message>
-              New to us? <Link to='/register' onClick={this.handleRegisterRouteChange}>Register</Link>
+            <Message                   
+              style={{
+                border:"1.2px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
+            >
+              New to us? 
+              <Link 
+                style={{
+                  color: "rgb(65, 118, 115)",
+                  fontWeight: "bold"
+                }} 
+              to='/register' onClick={this.handleRegisterRouteChange}> Register</Link>
             </Message>
           </Grid.Column>
         </Grid>
