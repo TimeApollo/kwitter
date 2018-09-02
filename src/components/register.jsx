@@ -58,7 +58,13 @@ class RegisterUserForm extends React.Component{
           <Image src="logo.ico" />Register a new account
         </Header>
         <Form size='large'>
-          <Segment stacked>
+          <Segment 
+            stacked
+            style={{
+              border:"2px solid", 
+              borderColor: "rgb(65, 118, 115)",
+              }}
+          >
 
             <Form.Input
               fluid
@@ -69,6 +75,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Name'
               type="displayName"
               onChange={this.handleChangeDisplayName}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
 
             <Form.Input 
@@ -80,6 +90,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Username' 
               type="username"
               onChange={this.handleChangeUsername}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
 
             <Form.Input
@@ -91,6 +105,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Create a password'
               type='password'
               onChange={this.handleChangePassword}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
 
             <Form.Input
@@ -102,14 +120,31 @@ class RegisterUserForm extends React.Component{
               placeholder='Re-enter Password'
               type='password'
               onChange={this.handleChangePasswordMatch}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
-            <Button color='teal' fluid size='large' onClick={this.handleRegisterUser}>
+            <Button
+              color='teal' 
+              fluid 
+              size='large'
+              onClick={this.handleRegisterUser}>
               Register User
             </Button>
           </Segment>
         </Form>
-        <Message>
-          Already a member? <Link to='/'>Login</Link>
+        <Message 
+          style={{
+          border:"1.2px solid", 
+          borderColor: "rgb(65, 118, 115)",
+          }}>
+          Already a member? 
+          <Link
+          style={{
+            color: "rgb(65, 118, 115)",
+            fontWeight: "bold"
+          }} to='/'> Login</Link>
         </Message>
       </Grid.Column>
     </Grid>

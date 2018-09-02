@@ -39,16 +39,36 @@ class EditProfileForm extends React.Component{
            }
          `}</style>
         <Navbar></Navbar>
-        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "100px" }}>
+        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em"}}>
         <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Update your profile
         </Header>
         <Form size='large'>
-          <Segment stacked>
+          <Segment stacked
+          style={{
+          border:"2px solid", 
+          borderColor: "rgb(65, 118, 115)",
+          }}
+          >
+            <Form.TextArea
+              fluid
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
+              value= {this.state.about}
+              iconPosition="left"
+              placeholder="Tell us about yourself..."
+              onChange={this.handleChangeAbout}
+            >
+            </Form.TextArea>
             <Form.Input
               fluid
-              required
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
               value= {this.state.password}
               icon='lock'
               iconPosition='left'
@@ -58,7 +78,10 @@ class EditProfileForm extends React.Component{
             />
               <Form.Input
               fluid
-              required
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
               value={this.state.passwordMatch}
               icon='lock'
               iconPosition='left'

@@ -9,23 +9,26 @@ import RegisterUserForm from "./register.jsx";
 import MessageFeed from './feed';
 import Profile from './profile';
 import Message from "./message"
+import Navbar from "./navbar"
 
 class App extends Component {
   render() {
     return (
-      // <React.Fragment>
-      //   <MessageFeed></MessageFeed>
-        // <Message></Message>
-      //   <RegisterUserForm></RegisterUserForm>
-      //   <LoginForm></LoginForm>
-      //   <EditProfileForm></EditProfileForm>
+      <React.Fragment>
+      {/* //   <MessageFeed></MessageFeed> */}
+        <Navbar></Navbar>
+        <Message></Message>
+        {/* <Message></Message> */}
+      {/* //   <RegisterUserForm></RegisterUserForm> */}
+      {/* //   <LoginForm></LoginForm> */}
+      {/* //   <EditProfileForm></EditProfileForm> */}
       // </React.Fragment>
-      <Switch>
-        <Route exact path='/' component={LoginForm}/>
-        <Route path='/register' component={RegisterUserForm}/>
-        <Route path='/messages' component={MessageFeed}/>
-        <Route path='/home' component={Profile}/>
-      </Switch>
+      // <Switch>
+      //   <Route exact path='/' component={LoginForm}/>
+      //   <Route path='/register' component={RegisterUserForm}/>
+      //   <Route path='/messages' component={MessageFeed}/>
+      //   <Route path='/home' component={Profile}/>
+      // </Switch>
     );
   }
 }
