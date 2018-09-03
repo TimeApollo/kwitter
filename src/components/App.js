@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from "semantic-ui-react"
 import { withRouter , Switch , Route , Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
@@ -17,12 +18,15 @@ class App extends Component {
       <React.Fragment>
       {/* //   <MessageFeed></MessageFeed> */}
         <Navbar></Navbar>
-        <Message></Message>
         {/* <Message></Message> */}
+        {/* <Message></Message> */}
+        {/* <Message></Message> */}
+        {/* <ProfileSidebar></ProfileSidebar> */}
       {/* //   <RegisterUserForm></RegisterUserForm> */}
       {/* //   <LoginForm></LoginForm> */}
       {/* //   <EditProfileForm></EditProfileForm> */}
-      // </React.Fragment>
+      <Profile></Profile>
+     </React.Fragment>
       // <Switch>
       //   <Route exact path='/' component={LoginForm}/>
       //   <Route path='/register' component={RegisterUserForm}/>

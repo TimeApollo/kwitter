@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Divider, Button, Container, Card, Grid } from "semantic-ui-react"
-import Navbar from './navbar';
+import { Icon, Divider, Container, Card, Grid } from "semantic-ui-react"
+// import ProfileSidebar from './sidebar';
 
 class MessageComponent extends React.Component {
 
@@ -14,8 +14,9 @@ render() {
         style={{
           border:"3px solid", 
           borderColor: "rgb(65, 118, 115)", 
-          maxWidth: 550, 
-          padding: 10,
+          width: "40em", 
+          padding: "1.5em",
+          marginBottom: "1em",
         }}
       >
         <Grid.Row
@@ -33,7 +34,9 @@ render() {
           }}
           >Usernamethatislonger</Grid.Column>
           <Grid.Column>
-            <Icon link name="close"
+            <Icon 
+            link 
+            name="close"
             style={{
               display: "flex",
               color: "rgb(206, 206, 207"}}>
@@ -60,7 +63,7 @@ render() {
                 backgroundColor: "rgb(0, 169, 160)", 
                 borderRadius: "50px",
             }}
-            ></img>
+            />
             <Divider></Divider>
           </Grid.Column>
           <Grid.Column

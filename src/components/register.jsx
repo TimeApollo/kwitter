@@ -144,7 +144,8 @@ class RegisterUserForm extends React.Component{
           style={{
             color: "rgb(65, 118, 115)",
             fontWeight: "bold"
-          }} to='/'> Login</Link>
+          }} 
+          to='/'> Login</Link>
         </Message>
       </Grid.Column>
     </Grid>

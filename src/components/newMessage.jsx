@@ -6,7 +6,9 @@ class NewMessage extends React.Component {
 
     render() {
         return (
-            <Form>
+            <Form
+                style={{marginBottom: "3em"}}
+            >
                 <TextArea placeholder="What's on your mind?" />
             </Form>
     )}
@@ -25,4 +27,4 @@ function mapStateToProps({auth}) {
 
 
 
-export default connect(mapStateToProps , undefined)(NewMessage) 
+export default (NewMessage) 
