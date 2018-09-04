@@ -1,9 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Divider, Button, Container, Card, Grid } from "semantic-ui-react"
-import Navbar from './navbar';
-
+import { Icon, Divider, Container, Card, Grid } from "semantic-ui-react"
+import { deleteMessage, deleteLike, likeMessage } from "./action.js"
 class MessageComponent extends React.Component {
+
+  handleDeleteMessage = () => {
+    this.props.deleteMessage(this.props.auth.token, this.props.messageId)
+  }
+
+  handleLikeMessage = () => {
+    this.props.likeMessage(this.props.userId, this.props.messageId, this.props.auth.token)
+  }
+
+  handleUnlikeMessage = () => {
+    // this.props.deleteLike(token, likeId)
+  }
 
 render() {
   return (
@@ -14,8 +25,9 @@ render() {
         style={{
           border:"3px solid", 
           borderColor: "rgb(65, 118, 115)", 
-          maxWidth: 550, 
-          padding: 10,
+          width: "40em", 
+          padding: "1.5em",
+          marginBottom: "1em",
         }}
       >
         <Grid.Row
@@ -31,9 +43,13 @@ render() {
             display: "flex",
             alignSelf: "center"
           }}
-          >Usernamethatislonger</Grid.Column>
+          >
+            <span>{this.props.username}</span>
+          </Grid.Column>
           <Grid.Column>
-            <Icon link name="close"
+            <Icon 
+            link 
+            name="close"
             style={{
               display: "flex",
               color: "rgb(206, 206, 207"}}>
@@ -60,11 +76,11 @@ render() {
                 backgroundColor: "rgb(0, 169, 160)", 
                 borderRadius: "50px",
             }}
-            ></img>
+            />
             <Divider></Divider>
           </Grid.Column>
           <Grid.Column
-              style ={{
+              style={{
                 display: "flex",
                 flexWrap: "wrap",
                 maxWidth: "350px"
@@ -75,7 +91,7 @@ render() {
               padding: "1em"
             }}
             >
-              Prow scuttle provost Sail ho shrouds spiritsboom mizzenmast yardarm. Pinnace holystonemizzenmast quartercrow's nest nipperkin grogyardarm hempen halter furl. Swab barqueinterloper chantey doubloon starboardgrogblack jack gangway rutters. Arrrrgh.
+              <span>{this.props.summary}</span>
             </Container>
           </Grid.Column>
         </Grid.Row>
@@ -92,13 +108,25 @@ render() {
             display: "flex",
             alignSelf: "center"
           }}
-          >April 29, 1992 5:00 pm</Grid.Column>
-          <Grid.Column>
+          >
+            <span>{this.props.date}</span>
+          </Grid.Column>
+          <Grid.Column 
+          style={{
+            marginTop: 5,
+            color: "rgb(206, 206, 207",
+          }}>
+              <span>{this.props.meta}</span>
             <Icon 
-            link 
-            name ="thumbs up outline" 
+            link
+            onClick={this.handleLikeMessage}
+            name="thumbs up outline" 
             size="large" 
-            style={{color: "rgb(206, 206, 207"}}>
+            style={{
+              color: "rgb(206, 206, 207",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}>
             </Icon>
           </Grid.Column>
         </Grid.Row>
@@ -109,11 +137,23 @@ render() {
 }    
 }
 
-function mapStateToProps(state) {
-    return {
-      "messages": state.messages
+const mapStateToProps = ({auth, userId}) => {
+  auth, 
+  userId
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    likeMessage: (userId, messageId, token) => {
+      dispatch(likeMessage(userId, messageId, token))
+    },
+    deleteLike: (token, likeId) => {
+      dispatch(deleteLike(token, likeId))
+    },
+    deleteMessage: (token, messageId) => {
+      dispatch(deleteMessage(token, messageId))
     }
   }
-  
-  
-  export default connect(mapStateToProps, undefined)(MessageComponent)
+}
+ 
+export default connect(undefined, mapDispatchToProps)(MessageComponent)

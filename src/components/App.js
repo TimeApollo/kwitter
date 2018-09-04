@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from "semantic-ui-react"
 import { withRouter , Switch , Route , Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
@@ -11,24 +12,28 @@ import Profile from './profile';
 import Message from "./message"
 import Navbar from "./navbar"
 
+
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-      {/* //   <MessageFeed></MessageFeed> */}
-        <Navbar></Navbar>
-        <Message></Message>
-        {/* <Message></Message> */}
-      {/* //   <RegisterUserForm></RegisterUserForm> */}
-      {/* //   <LoginForm></LoginForm> */}
-      {/* //   <EditProfileForm></EditProfileForm> */}
-      // </React.Fragment>
-      // <Switch>
-      //   <Route exact path='/' component={LoginForm}/>
-      //   <Route path='/register' component={RegisterUserForm}/>
-      //   <Route path='/messages' component={MessageFeed}/>
-      //   <Route path='/home' component={Profile}/>
-      // </Switch>
+      // <React.Fragment>
+    //   {/* //   <MessageFeed></MessageFeed> */}
+    //     {/* <Navbar></Navbar> */}
+    //     {/* <Message></Message> */}
+    //     {/* <Message></Message> */}
+    //     {/* <Message></Message> */}
+    //     {/* <ProfileSidebar></ProfileSidebar> */}
+    //   {/* //   <RegisterUserForm></RegisterUserForm> */}
+    //   {/* //   <LoginForm></LoginForm> */}
+    //   {/* //   <EditProfileForm></EditProfileForm> */}
+    //   {/* <Profile></Profile> */}
+    //  {/* </React.Fragment> */}
+      <Switch>
+        <Route exact path='/' component={LoginForm}/>
+        <Route path='/register' component={RegisterUserForm}/>
+        <Route path='/messages' component={MessageFeed}/>
+        <Route path='/home' component={Profile}/>
+      </Switch>
     );
   }
 }

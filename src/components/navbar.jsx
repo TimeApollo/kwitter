@@ -7,6 +7,7 @@ class Navbar extends React.Component {
 render() {
     return (
         <div className="navbar">
+
             <nav style={{display: "flex", justifyContent: "center"}}>
                 <img 
                     className="banner" 
