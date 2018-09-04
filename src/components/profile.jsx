@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar from './navbar.jsx';
-import MessageComponent from "./message"
+// import MessageComponent from "./message"
 import ProfileSidebar from "./sidebar"
 import { Container } from "semantic-ui-react"
 
 import { connect } from 'react-redux';
 import { fetchUsers , fetchOneUser , fetchMessages } from './action'
 import NewMessage from "./newMessage"
+import MessageFeed from "./messageList"
 
 
 class Profile extends React.Component{
@@ -31,13 +31,8 @@ class Profile extends React.Component{
         <ProfileSidebar>
         </ProfileSidebar>
         <Container>
-        <NewMessage></NewMessage>
-        <MessageComponent></MessageComponent>
-        <MessageComponent></MessageComponent>
-        <MessageComponent></MessageComponent>
-        <MessageComponent></MessageComponent>
-        <MessageComponent></MessageComponent>
-        <MessageComponent></MessageComponent>
+          <NewMessage></NewMessage>
+          <MessageFeed></MessageFeed>
         </Container>
       </div>
     )

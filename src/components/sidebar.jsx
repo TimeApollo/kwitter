@@ -19,7 +19,6 @@ class ProfileSidebar extends React.Component {
       style={{
         border:"3px solid", 
         borderColor: "rgb(65, 118, 115)", 
-        // marginRight: "3em",
         marginLeft: "-3em",
         width: "25em",
         height: "41em",
