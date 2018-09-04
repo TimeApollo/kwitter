@@ -12,13 +12,23 @@ class RegisterUserForm extends React.Component{
     username: "",
     password: "",
     passwordMatch: "",
+    isPasswordMatch: true,
   }
 
   handleRegisterUser = () => {
-    if (this.state.password === this.state.passwordMatch) {
-      this.props.registerUser(this.state.username, this.state.password, this.state.displayName, this )
+    if (
+      this.state.password === this.state.passwordMatch && 
+      this.state.username &&
+      this.state.displayName
+    ) {
+      this.setState({isPasswordMatch: true})
+      this.props.registerUser(this.state.username, this.state.password, this.state.displayName )
+      return
+    } 
+    if (this.state.password !== this.state.passwordMatch) {
+      this.setState({isPasswordMatch: false})
     } else {
-      alert("Passwords don't match, yo!")
+      this.setState({isPasswordMatch: true})
     }
   }
 
@@ -41,7 +51,14 @@ class RegisterUserForm extends React.Component{
     this.setState({displayName: event.target.value})
   }
 
+  passwordMismatch = () => {
+    return (
+      <Segment raised>Passwords must match.</Segment>
+    )
+  }
+
   render(){
+
     return (
     <div className='login-form'>  
     <style> {`
@@ -54,9 +71,11 @@ class RegisterUserForm extends React.Component{
     <Navbar></Navbar>
     <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
       <Grid.Column style={{ maxWidth: 450 }}>
+      
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Register a new account
         </Header>
+        
         <Form size='large'>
           <Segment stacked>
 
@@ -81,7 +100,7 @@ class RegisterUserForm extends React.Component{
               type="username"
               onChange={this.handleChangeUsername}
             />
-
+            { this.state.isPasswordMatch ? null : this.passwordMismatch() }
             <Form.Input
               fluid
               required
@@ -101,8 +120,12 @@ class RegisterUserForm extends React.Component{
               iconPosition='left'
               placeholder='Re-enter Password'
               type='password'
+              match="password"
               onChange={this.handleChangePasswordMatch}
             />
+
+            
+
             <Button color='teal' fluid size='large' onClick={this.handleRegisterUser}>
               Register User
             </Button>
