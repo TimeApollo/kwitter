@@ -4,7 +4,6 @@ import { connect } from "react-redux"
 import MessageComponent from "./message"
 import { fetchMessages, fetchUsers, fetchOneUser } from "./action.js"
 import { Switch, Route } from "react-router-dom"
-import Navbar from "./navbar"
 
 class MessageFeed extends React.Component {
 
@@ -16,20 +15,20 @@ class MessageFeed extends React.Component {
 
   matchIdtoUsername = (userId) => {
     let name = this.props.users.filter(user => user.id === userId)
-    console.log(name)
     return name[0].username
   }
 
   feedMessages = () => {
     return (
-      this.props.messages.map(message =>{
+      this.props.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
         return (
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
-              meta={message.likes.length}
+              meta={"likes: " + message.likes.length}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
+              key={message.id}
             >
             </MessageComponent>
         )
@@ -39,7 +38,7 @@ class MessageFeed extends React.Component {
 
   profileMessages = () => {
     return (
-      this.props.messages.map(message =>{
+      this.props.user.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
         return (
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
@@ -47,6 +46,7 @@ class MessageFeed extends React.Component {
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
+              key={message.id}
             >
             </MessageComponent>
         )
@@ -56,17 +56,35 @@ class MessageFeed extends React.Component {
 
   formatPostDate = (date) => {
 
-    const months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+    const zeroes = [ '00' , '01' , '02' , '03' , '04' , '05' , '06' , '07' , '08' , '09' ]
 
-    let monthIndex = parseInt(date.substring(5, 7))
+    let dateObject = new Date(date)
+    let month = dateObject.getUTCMonth()
+    let day = dateObject.getUTCDate()
+    let year = dateObject.getUTCFullYear()
+    let hours = dateObject.getHours()
+    let ending = 'AM'
+    if (hours === 0){
+      hours = 12
+    }else if ( hours < 10 ){
+      hours = zeroes[hours]
+    }else if (hours === 12){
+      ending = 'PM'
+    }else if(hours > 12){
+      hours = hours - 12;
+      ending = 'PM'
+    }
+    let minutes = dateObject.getMinutes()
+    if ( minutes < 10 ){
+      minutes = zeroes[minutes]
+    }
+    let seconds = dateObject.getSeconds()
+    if ( seconds < 10 ){
+      seconds = zeroes[seconds]
+    }
 
-    let time = date.substring(11,19)
-
-    let day = date.substring(8, 9)
-
-    let year = date.substring(0, 4)
-
-    return months[monthIndex] + " " +  day + ", "+ year + " at " + time
+    return `${months[month]} ${day}, ${year} at ${hours}:${minutes}:${seconds} ${ending}`;
   }
 
   
@@ -91,7 +109,7 @@ class MessageFeed extends React.Component {
     >
       <Switch>
         <Route path="/feed" component={this.feedMessages}></Route>
-        <Route path="/home" component={this.profileMessages}></Route>
+        <Route path="/home" component={ this.props.user.messages ? this.profileMessages : null }></Route>
       </Switch>
     </Container>
     </div>

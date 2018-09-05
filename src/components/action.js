@@ -76,7 +76,6 @@ export const clickedLoginLink = () => {
   }
 }
 
-
 // pass in form input / input from page into the username/password instead of hardcoding 
 export const userLogin = (username , password) => (dispatch) => {
    //this is for testing
@@ -203,9 +202,11 @@ export const getOneUser = (user) => {
 }
 
 export const fetchMessages = () => (dispatch) => {
-  fetch(`${api}/messages`)
+  fetch(`${api}/messages?limit=10000`)
     .then(response => response.json())
     .then(messages => {
+      let thing = messages.messages
+      console.log(new Date(thing[0].createdAt).getMonth())
       dispatch(getMessages(messages))
     })
 }
