@@ -17,12 +17,14 @@ export const GET_MESSAGES = "GET_MESSAGES";
 export const GET_ONE_MESSAGE = "GET_ONE_MESSAGE"
 export const REGISTER_SUCCESS = 'REGISTER_COMPLETE';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const IS_REGISTERING = 'IS_REGISTERING';
+export const ROUTING_TO_LOGIN = 'ROUTING_TO_LOGIN';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
 
 const api = 'https://kwitter-api.herokuapp.com'
 
 export const registerUser = (username, password, displayName) => (dispatch) => {
-
+  dispatch(isRegistering())
   const header = {
     method: "POST",
     headers: {
@@ -37,9 +39,13 @@ export const registerUser = (username, password, displayName) => (dispatch) => {
   fetch(`${api}/auth/register`, header)
     .then(response => response.json())
     .then(registerResponse => {
-      console.log(registerResponse)
-      dispatch(registerSuccess(registerResponse.username,registerResponse.displayName))
-    }).catch(error => dispatch(registerFail()))
+      if( registerResponse.hasOwnProperty('errors')) {
+        dispatch(registerFail())
+      }else {
+        dispatch(registerSuccess(registerResponse.username,registerResponse.displayName))
+        dispatch(push('/'))
+      }
+    })
 }
 
 export const registerSuccess = (userName, displayName) => {
@@ -55,6 +61,18 @@ export const registerSuccess = (userName, displayName) => {
 export const registerFail = () => {
   return {
     type: REGISTER_FAIL,
+  }
+}
+
+export const isRegistering = () => {
+  return {
+    type: IS_REGISTERING,
+  }
+}
+
+export const clickedLoginLink = () => {
+  return {
+    type: ROUTING_TO_LOGIN
   }
 }
 
