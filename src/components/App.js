@@ -12,7 +12,6 @@ import Profile from './profile';
 import Message from "./message"
 import Navbar from "./navbar"
 
-
 class App extends Component {
   render() {
     return (
@@ -35,6 +34,7 @@ class App extends Component {
         <Route path='/register' component={RegisterUserForm}/>
         <Route path='/messages' component={MessageFeed}/>
         <Route path='/home' component={Profile}/>
+        <Route path='/feed' component={MessageFeed}/>
       </Switch>
     </div>
     );
