@@ -28,6 +28,7 @@ render() {
           width: "40em", 
           padding: "1.5em",
           marginBottom: "1em",
+          height: "100%"
         }}
       >
         <Grid.Row

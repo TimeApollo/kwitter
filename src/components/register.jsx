@@ -78,7 +78,7 @@ class RegisterUserForm extends React.Component{
         height: 100%;
       }
     `}</style>
-    <Navbar></Navbar>
+    {/* <Navbar></Navbar> */}
     <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
       <Grid.Column style={{ maxWidth: 450 }}>
         { this.props.register.isRegisterFail ? this.registerFail() : null }

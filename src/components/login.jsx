@@ -40,7 +40,9 @@ class LoginForm extends React.Component{
         
 
     return (
-      <div className='login-form'>
+      <div className='login-form'
+      style={{marginTop: "14em"}}
+      >
         <style> {`
           body > div,
           body > div > div,
@@ -48,7 +50,6 @@ class LoginForm extends React.Component{
             height: 100%;
           }
         `}</style>
-        <Navbar></Navbar>
         <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
           <Grid.Column style={{ maxWidth: 450 }}>
             { this.props.register.isRegisterSuccess ? this.registerSuccess() : null }

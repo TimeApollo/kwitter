@@ -28,12 +28,15 @@ class App extends Component {
     //   {/* //   <EditProfileForm></EditProfileForm> */}
     //   {/* <Profile></Profile> */}
     //  {/* </React.Fragment> */}
+    <div>
+      <Navbar></Navbar>
       <Switch>
         <Route exact path='/' component={LoginForm}/>
         <Route path='/register' component={RegisterUserForm}/>
         <Route path='/messages' component={MessageFeed}/>
         <Route path='/home' component={Profile}/>
       </Switch>
+    </div>
     );
   }
 }
