@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import MessageComponent from "./message"
 import { fetchMessages, fetchUsers, fetchOneUser } from "./action.js"
 import { Switch, Route } from "react-router-dom"
+import Navbar from "./navbar"
 
 class MessageFeed extends React.Component {
 
@@ -42,7 +43,7 @@ class MessageFeed extends React.Component {
         return (
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
-              meta={"likes " + message.likes.length}
+              meta={"likes: " + message.likes.length}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
@@ -77,9 +78,6 @@ class MessageFeed extends React.Component {
           style={{ 
           display: "flex",
           justifyContent: "center",
-          paddingTop: "5em",
-          overflowX: "hidden",
-          overflowY: "scroll"
           }}
       >
     <Container
@@ -88,6 +86,7 @@ class MessageFeed extends React.Component {
         flexDirection: "column",
         width: "40em",
         marginBottom: "1em",
+        border: "none",
       }}
     >
       <Switch>

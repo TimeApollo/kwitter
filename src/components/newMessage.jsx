@@ -17,7 +17,7 @@ class NewMessage extends React.Component {
     render() {
         return (
             <Form
-                style={{marginBottom: "3em"}}
+                style={{marginBottom: "3em", marginTop: "14em"}}
             >
                 <TextArea 
                     placeholder="What's on your mind?"
