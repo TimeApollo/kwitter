@@ -1,9 +1,45 @@
 import React from 'react'
 import { Card, Divider, Icon } from 'semantic-ui-react'
-import Link from "react"
+import { connect } from "react-redux"
+import { fetchMessages, fetchUsers, fetchOneUser } from "./action.js"
 
 
 class ProfileSidebar extends React.Component {
+
+
+  componentDidMount(){
+    this.props.fetchUsers();
+    this.props.fetchOneUser(this.props.userID);
+    this.props.fetchMessages();
+  }
+
+  formatJoinDate = (date) => {
+
+    const months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    let dateObject = new Date(date)
+    let month = dateObject.getUTCMonth() + 1
+    let day = dateObject.getUTCDate()
+    let year = dateObject.getUTCFullYear()
+
+    return months[month] + " " + day + ", " + year;
+
+  }
+  matchIdtoUsername = (userId) => {
+    let name = this.props.users.filter(user => user.id === userId)
+    console.log(name)
+    return name[0].username
+  }
+
+  trendingMessages = () => {
+    return (
+      this.props.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
+        <Card.Content>
+            username={this.matchIdtoUsername(message.userId)}
+            summary={message.text}
+            messageId={message.id}
+        </Card.Content>
+
 
   render() {
     return (
@@ -50,24 +86,26 @@ class ProfileSidebar extends React.Component {
         />
         </div>
         <Divider></Divider>
-        <Card.Header textAlign="center">Username
+        <Card.Header textAlign="center">
+        {this.props.user.username}
           <Divider></Divider>
-          Display Name
+        {this.props.user.displayName}
         </Card.Header>
         <Divider></Divider>
         <Card.Description textAlign="center">
         Member since
         <br></br>
-        April 29, 1992
+          {this.props.user.createdAt ? this.formatJoinDate(this.props.user.createdAt) : null}
         <Divider></Divider>
           <h3 style={{marginTop: 0, marginBottom: 0, color: "black"}}><strong>About</strong></h3>
           <br></br>
           <p style={{marginTop: "-1em"}} >
-          Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. Belay yo-ho-ho keelhaul squiffy black spot yardarm spyglass sheet transom heave to.
+            {this.props.user.about}
           </p>
         </Card.Description>
       </Card.Content>
       </Card>
+
       <Card
       centered
       style={{
@@ -84,27 +122,34 @@ class ProfileSidebar extends React.Component {
         <Card.Header>Trending  <Icon name="chart line"></Icon>
           <Divider style={{backgroundColor: "black"}} ></Divider>
         </Card.Header>
-        <Card.Content>
-        Username
-        <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}} ></Divider>
-        yoooo Shiver me timbers to go on account lookout wherry doubloon chase.
-        </Card.Content>
-        <Divider style={{backgroundColor: "black"}} ></Divider>
-        <Card.Content>
-        Username
-        <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}} ></Divider>
-        Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. Belay yo-ho-ho keelhaul squiffy black spot yardarm spyglass sheet transom heave to.
-        </Card.Content>
-        <Divider style={{backgroundColor: "black"}} ></Divider>
-        <Card.Content>
-        Username
-        <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}} ></Divider>
-        Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers
-        </Card.Content>
       </Card.Content>
+      <Card.Content>
+        {this.props.username}
+        <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}}></Divider>
+        {this.props.summary}
+      </Card.Content>
+          <Divider style={{backgroundColor: "black"}}></Divider>
       </Card>
       </Card.Group>
       </React.Fragment>
 )}}
 
-export default ProfileSidebar
+const mapStateToProps = ({user}) => ({
+  user
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUsers: ( limit , offset ) => {
+      dispatch(fetchUsers( limit , offset ))
+    },
+    fetchOneUser: ( userID ) => {
+      dispatch( fetchOneUser( userID ))
+    },
+    fetchMessages: () => {
+      dispatch( fetchMessages())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileSidebar)

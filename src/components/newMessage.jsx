@@ -11,9 +11,6 @@ class NewMessage extends React.Component {
         this.setState({message: event.target.value})
     }
 
-
-
-
     render() {
         return (
             <Form
@@ -24,7 +21,6 @@ class NewMessage extends React.Component {
                     onChange={this.handleSubmitMessage}
                     value={this.state.message}
                 />
-
             </Form>
     )}
 }

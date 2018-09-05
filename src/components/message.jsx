@@ -28,7 +28,7 @@ render() {
           width: "40em", 
           padding: "1.5em",
           marginBottom: "1em",
-          height: "100%"
+          height: "auto"
         }}
       >
         <Grid.Row
@@ -53,7 +53,8 @@ render() {
             name="close"
             style={{
               display: "flex",
-              color: "rgb(206, 206, 207"}}>
+              color: "rgb(206, 206, 207"
+            }}>
             </Icon>
           </Grid.Column>
         </Grid.Row>
@@ -84,12 +85,14 @@ render() {
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                maxWidth: "350px"
+                maxWidth: "350px",
+                height: "auto"
             }}
           >                
             <Container
             style={{
-              padding: "1em"
+              padding: "1em",
+              height: "auto"
             }}
             >
               <span>{this.props.summary}</span>
@@ -138,10 +141,13 @@ render() {
 }    
 }
 
-const mapStateToProps = ({auth, userId}) => {
-  auth, 
-  userId
-}
+// const mapStateToProps = ({auth, userID , user, users, messages}) => ({
+//   auth,
+//   userID,
+//   user,
+//   users,
+//   messages
+// });
 
 const mapDispatchToProps = (dispatch) => {
   return {
