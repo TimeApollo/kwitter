@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Card, Divider, Icon } from 'semantic-ui-react'
+import { Card, Divider, Icon } from 'semantic-ui-react'
 import Link from "react"
 
 
@@ -12,7 +12,8 @@ class ProfileSidebar extends React.Component {
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
+        marginTop: "13.2em"
       }} >
       <Card
       centered

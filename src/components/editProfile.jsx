@@ -70,6 +70,18 @@ class EditProfileForm extends React.Component{
                 borderColor: "rgb(65, 118, 115)",
                 }}
               value= {this.state.password}
+              icon='user'
+              iconPosition='left'
+              placeholder='Display name'
+              onChange={this.handleChangePassword}
+            />
+            <Form.Input
+              fluid
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
+              value= {this.state.password}
               icon='lock'
               iconPosition='left'
               placeholder='New password'
