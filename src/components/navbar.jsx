@@ -33,7 +33,7 @@ render() {
                 display: "flex",
                 flexDirection: "row-reverse",
                 justifyContent: "flex-start",
-                marginRight: "5em"
+                marginRight: "5em",
             }}>
                 <Grid.Column>
                     <Button>
