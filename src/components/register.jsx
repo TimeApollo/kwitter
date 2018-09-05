@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import {connect } from 'react-redux'
-import { registerUser } from './action'
+import { registerUser , clickedLoginLink } from './action'
 import Navbar from "./navbar.jsx"
 
 class RegisterUserForm extends React.Component{
@@ -51,9 +51,19 @@ class RegisterUserForm extends React.Component{
     this.setState({displayName: event.target.value})
   }
 
+  handleLoginRouteChange = () => {
+    this.props.clickedLoginLink()
+  }
+
   passwordMismatch = () => {
     return (
       <Segment raised>Passwords must match.</Segment>
+    )
+  }
+
+  registerFail = () => {
+    return (
+      <Segment raised>Username is already taken. Please enter in a different Username.</Segment>
     )
   }
 
@@ -71,13 +81,19 @@ class RegisterUserForm extends React.Component{
     <Navbar></Navbar>
     <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
       <Grid.Column style={{ maxWidth: 450 }}>
-      
+        { this.props.register.isRegisterFail ? this.registerFail() : null }
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Register a new account
         </Header>
         
         <Form size='large'>
-          <Segment stacked>
+          <Segment 
+            stacked
+            style={{
+              border:"2px solid", 
+              borderColor: "rgb(65, 118, 115)",
+              }}
+          >
 
             <Form.Input
               fluid
@@ -88,6 +104,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Name'
               type="displayName"
               onChange={this.handleChangeDisplayName}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
 
             <Form.Input 
@@ -99,6 +119,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Username' 
               type="username"
               onChange={this.handleChangeUsername}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
             { this.state.isPasswordMatch ? null : this.passwordMismatch() }
             <Form.Input
@@ -110,6 +134,10 @@ class RegisterUserForm extends React.Component{
               placeholder='Create a password'
               type='password'
               onChange={this.handleChangePassword}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
 
             <Form.Input
@@ -122,17 +150,32 @@ class RegisterUserForm extends React.Component{
               type='password'
               match="password"
               onChange={this.handleChangePasswordMatch}
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
             />
-
-            
-
-            <Button color='teal' fluid size='large' onClick={this.handleRegisterUser}>
+            <Button
+              color='teal' 
+              fluid 
+              size='large'
+              onClick={this.handleRegisterUser}>
               Register User
             </Button>
           </Segment>
         </Form>
-        <Message>
-          Already a member? <Link to='/'>Login</Link>
+        <Message 
+          style={{
+          border:"1.2px solid", 
+          borderColor: "rgb(65, 118, 115)",
+          }}>
+          Already a member? 
+          <Link
+          style={{
+            color: "rgb(65, 118, 115)",
+            fontWeight: "bold"
+          }} 
+          to='/' onClick={this.handleLoginRouteChange}> Login</Link>
         </Message>
       </Grid.Column>
     </Grid>
@@ -141,9 +184,9 @@ class RegisterUserForm extends React.Component{
   }
 }
 
-// const mapStateToProps = ({isRegisterSuccess}) => ({
-//   isRegisterSuccess
-// });
+const mapStateToProps = ({register}) => ({
+  register
+});
 
 
 //only need to map async props here
@@ -151,8 +194,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     registerUser: (username, password, displayName) => {
       dispatch(registerUser(username, password, displayName))
+    },
+    clickedLoginLink: () => {
+      dispatch(clickedLoginLink())
     }
   }
 }
 
-export default connect( null , mapDispatchToProps )(RegisterUserForm)
+export default connect( mapStateToProps , mapDispatchToProps )(RegisterUserForm)

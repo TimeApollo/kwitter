@@ -1,106 +1,159 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Icon, Divider, Button, Container, Card, Grid } from "semantic-ui-react"
-import Navbar from './navbar';
-
+import { Icon, Divider, Container, Card, Grid } from "semantic-ui-react"
+import { deleteMessage, deleteLike, likeMessage } from "./action.js"
 class MessageComponent extends React.Component {
 
+  handleDeleteMessage = () => {
+    this.props.deleteMessage(this.props.auth.token, this.props.messageId)
+  }
+
+  handleLikeMessage = () => {
+    this.props.likeMessage(this.props.userId, this.props.messageId, this.props.auth.token)
+  }
+
+  handleUnlikeMessage = () => {
+    // this.props.deleteLike(token, likeId)
+  }
+
 render() {
-    return (
+  return (
     <div>
-    <Navbar></Navbar>
-    <Card 
-    fluid 
-    centered
-    style={{border:"3px solid", borderColor: "rgb(65, 118, 115)", maxWidth: 550, padding: 10}}
-    >
-    <header>
-        <Grid.Row 
-        columns={3}
+      <Card
+        fluid
+        centered
         style={{
+          border:"3px solid", 
+          borderColor: "rgb(65, 118, 115)", 
+          width: "40em", 
+          padding: "1.5em",
+          marginBottom: "1em",
+        }}
+      >
+        <Grid.Row
+          columns={2}
+          style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between"
-            }}
+            justifyContent: "space-between",
+          }}
         >
-            <Grid.Column 
+          <Grid.Column
+          style={{
+            display: "flex",
+            alignSelf: "center"
+          }}
+          >
+            <span>{this.props.username}</span>
+          </Grid.Column>
+          <Grid.Column>
+            <Icon 
+            link 
+            name="close"
             style={{
-              maxWidth: "6em",
-              }} 
-            >
-               <div
-               >
-               Usernamethatislonger
-               </div>
-                <br></br>
-                <Divider></Divider>
-            <img src={require("../avatarAvatar.png")} width={60} height={60}
-                style={{
-                    border: "1px solid", 
-                    borderColor: "rgb(65, 118, 115)", 
-                    backgroundColor: "rgb(0, 169, 160)", 
-                    borderRadius: "50px",
-                    margin: 8
-                }}
-            />
-            </Grid.Column>
-            <Grid.Column 
-                style ={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    maxWidth: "350px"
-                }}
-            >
-                <Container 
-                text 
-                style={{
-                  marginTop: "30px",
-                  marginBottom: "20px"
-                }}
-                >
-                Prow scuttle provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quartercrow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grogblack jack gangway rutters. Arrrrgh.
-                </Container>
-            </Grid.Column>
-            <Grid.Column
-                style= {{
-                    display:"flex",
-                    justifyContent: "flex-end"
-                }}
-            >
-                <Button style={{
-                    borderColor: "rgb(65, 118, 115)",
-                    border: ".5px solid",
-                    backgroundColor: "rgb(213, 242, 232)", 
-                    paddingLeft: ".4em",
-                    paddingRight: ".4em",
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                    maxHeight: "2em",
-                }} 
-                >
-                Delete
-                </Button>
-            </Grid.Column>
+              display: "flex",
+              color: "rgb(206, 206, 207"}}>
+            </Icon>
+          </Grid.Column>
         </Grid.Row>
-    </header>
+        <Grid.Row 
+          column={2}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <Grid.Column>
+            <Divider></Divider>
+            <img
+              src={require("../avatarAvatar.png")} 
+              width={60} 
+              height={60}
+              style={{
+                border: "1px solid", 
+                borderColor: "rgb(65, 118, 115)", 
+                backgroundColor: "rgb(0, 169, 160)", 
+                borderRadius: "50px",
+            }}
+            />
+            <Divider></Divider>
+          </Grid.Column>
+          <Grid.Column
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                maxWidth: "350px"
+            }}
+          >                
+            <Container
+            style={{
+              padding: "1em"
+            }}
+            >
+              <span>{this.props.summary}</span>
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row
+          columns={2}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Grid.Column
+          style={{
+            display: "flex",
+            alignSelf: "center"
+          }}
+          >
+            <span>{this.props.date}</span>
+          </Grid.Column>
+          <Grid.Column 
+          style={{
+            marginTop: 5,
+            color: "rgb(206, 206, 207",
+          }}>
+              <span>{this.props.meta}</span>
+            <Icon 
+            link
+            onClick={this.handleLikeMessage}
+            name="thumbs up outline" 
+            size="large" 
+            style={{
+              color: "rgb(206, 206, 207",
+              marginLeft: 5,
+              marginBottom: 5,
+            }}>
+            </Icon>
+          </Grid.Column>
+        </Grid.Row>
+      </Card>
+    </div>
 
-        <Grid>
-            <Grid.Row columns={2}>
-                <Grid.Column>April 29, 1992 5:00</Grid.Column>
-                <Grid.Column textAlign="right">Likes: 5</Grid.Column>
-            </Grid.Row>
-      </Grid>
-  </Card>
-  </div>
-    )
+  )
 }    
 }
 
-function mapStateToProps(state) {
-    return {
-      "messages": state.messages
+const mapStateToProps = ({auth, userId}) => {
+  auth, 
+  userId
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    likeMessage: (userId, messageId, token) => {
+      dispatch(likeMessage(userId, messageId, token))
+    },
+    deleteLike: (token, likeId) => {
+      dispatch(deleteLike(token, likeId))
+    },
+    deleteMessage: (token, messageId) => {
+      dispatch(deleteMessage(token, messageId))
     }
   }
-  
-  
-  export default connect(mapStateToProps, undefined)(MessageComponent)
+}
+ 
+export default connect(undefined, mapDispatchToProps)(MessageComponent)

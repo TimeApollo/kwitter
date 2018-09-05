@@ -6,6 +6,8 @@ import {
   EDIT_PROFILE,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  IS_REGISTERING,
+  ROUTING_TO_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   IS_LOGGING_IN,
@@ -47,6 +49,35 @@ const kwitterReducer = ( state = initialState , action ) => {
         register:{
           ...state.register,
           isRegisterSuccess: true,
+          isRegisterFail: false,
+          isRegisteringUser: false,
+        }
+      }
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        register:{
+          ...state.register,
+          isRegisterSuccess: false,
+          isRegisterFail: true,
+          isRegisteringUser: false,
+        }
+      }
+    case IS_REGISTERING:
+      return {
+        ...state,
+        register:{
+          ...state.register,
+          isRegisteringUser: true,
+        }
+      }
+    case ROUTING_TO_LOGIN:
+      return {
+        ...state,
+        register:{
+          isRegisterSuccess: false,
+          isRegisterFail: false,
+          isRegisteringUser: false,
         }
       }
     case USER_LOGIN_SUCCESS:

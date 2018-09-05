@@ -27,10 +27,16 @@ class LoginForm extends React.Component{
   handleRegisterRouteChange = () => {
     this.props.clickedRegisterLink()
   }
+
+  registerSuccess = () => {
+    return (
+      <Segment raised>Account Successfully Created! Welcome To Kwitter! Please login with new account info</Segment>
+    )
+  }
   
   render(){
 
-    let loginFail = <Segment raised>Username and Password do not match. If you are new, please register by hitting the register below. If you have forgotten your password, you are shit out of luck. We have no recovery system.</Segment>
+    let loginFail = <Segment raised>Username and Password do not match. If you are new, please register by hitting the register button below. If you have forgotten your password, you are shit out of luck. We have no recovery system.</Segment>
         
 
     return (
@@ -45,12 +51,18 @@ class LoginForm extends React.Component{
         <Navbar></Navbar>
         <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
           <Grid.Column style={{ maxWidth: 450 }}>
+            { this.props.register.isRegisterSuccess ? this.registerSuccess() : null }
             { this.props.auth.isLoginFail ? loginFail : null }
             <Header as='h2' color='teal' textAlign='center'>
               <Image src="logo.ico" />Log-in to your account
             </Header>
             <Form size='large'>
-              <Segment stacked>
+              <Segment 
+                stacked         
+                style={{
+                  border:"2px solid", 
+                  borderColor: "rgb(65, 118, 115)",
+              }}>
                 <Form.Input
                   fluid
                   required
@@ -60,6 +72,10 @@ class LoginForm extends React.Component{
                   iconPosition='left' 
                   placeholder='Username'
                   onChange= {this.handleChangeUser}
+                  style={{
+                    border:"1px solid", 
+                    borderColor: "rgb(65, 118, 115)",
+                    }}
                   />
                 <Form.Input
                   fluid
@@ -71,14 +87,29 @@ class LoginForm extends React.Component{
                   placeholder='Password'
                   type='password'
                   onChange= {this.handleChangePassword}
+                  style={{
+                    border:"1px solid", 
+                    borderColor: "rgb(65, 118, 115)",
+                    }}
                 />
                 <Button color='teal' fluid size='large' onClick={this.handleSubmitLogin}>
                   Login
                 </Button>
               </Segment>
             </Form>
-            <Message>
-              New to us? <Link to='/register' onClick={this.handleRegisterRouteChange}>Register</Link>
+            <Message                   
+              style={{
+                border:"1.2px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
+            >
+              New to us? 
+              <Link 
+                style={{
+                  color: "rgb(65, 118, 115)",
+                  fontWeight: "bold"
+                }} 
+              to='/register' onClick={this.handleRegisterRouteChange}> Register</Link>
             </Message>
           </Grid.Column>
         </Grid>
@@ -87,8 +118,9 @@ class LoginForm extends React.Component{
   }
 }
 
-const mapStateToProps = ({auth}) => ({
-  auth
+const mapStateToProps = ({auth , register}) => ({
+  auth,
+  register
 });
 
 const mapDispatchToProps = (dispatch) => {
