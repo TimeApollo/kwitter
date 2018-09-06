@@ -8,7 +8,7 @@ class NewMessage extends React.Component {
 
     state = {
         message: "",
-        messageIsLongEnough: false
+        // messageIsLongEnough: false
     }
 
     profileForm = () => {

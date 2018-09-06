@@ -11,6 +11,7 @@ export const ROUTING_TO_REGISTER_PAGE = "ROUTING_TO_REGISTER_PAGE";
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
 export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
+export const IS_EDITING = "IS_EDITING";
 export const GET_USERS = "GET_USERS";
 export const GET_ONE_USER = "GET_ONE_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
@@ -363,22 +364,38 @@ export const deleteLikeSuccess = () => {
   }
 }
 
-export const editProfile = (password, token) => (dispatch) => {
+export const editProfile = (password, token, displayName, about) => (dispatch) => {
+  dispatch(isEditing())
+
+  let changes = {}
+
+  if (password) changes["password"] = password
+
+  if (displayName) changes["displayName"] = displayName
+
+  if (about) changes["about"] = about
+
+  console.log(changes)
+
     const header = {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-            "password": password
-        })
+        body: JSON.stringify(changes)
     }
     fetch(`${api}/users`, header)
         .then(response => response.json())
         .then(users => {
             dispatch(updatePasswordSuccess(users))
         })
+}
+
+export const isEditing = () => {
+  return {
+    type: IS_EDITING,
+  }
 }
 
 export const updatePasswordSuccess = (users) => {

@@ -2,20 +2,43 @@ import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
 import { editProfile } from './action'
-import Navbar from "./navbar.jsx"
 
-//need to work out conditions for checking if passwords match and if old password mathches before submitting new
 class EditProfileForm extends React.Component{
 
   state = {
+    displayName: "",
     password: "",
     passwordMatch: "",
+    about: "",
+    doesPasswordMatch: false,
+  }
+
+  passwordMismatch = () => {
+    return (
+      <Segment raised>Passwords don't match, buddy!</Segment>
+    )
+  }
+
+  profileEditSuccess = () => {
+    return (
+      <Segment raise>Profile successfully updated!</Segment>
+    )
   }
 
   handleSubmitProfile = () => {
-    if (this.state.Password === this.state.passwordMatch) {
-    this.props.editProfile( this.state.displayName, this.state.about, this.state.password, this, )
-  }}
+    this.setState({doesPasswordMatch: false})
+    if (this.state.password) {
+      if (this.state.password === this.state.passwordMatch) {
+        this.props.editProfile(this.state.password, this.props.token, this.state.displayName, this.state.about)
+      } else {
+        this.setState({doesPasswordMatch: true})
+      }
+    }
+    else if (this.state.about || this.state.displayName) {
+      this.props.editProfile(this.state.password, this.props.token, this.state.displayName, this.state.about)
+    }
+    // work on else statement saying you gotta change something
+  } 
 
   handleChangePassword = (event) => {
     this.setState({password: event.target.value})
@@ -43,12 +66,16 @@ class EditProfileForm extends React.Component{
              height: 100%;
            }
          `}</style>
-        <Navbar></Navbar>
-        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em"}}>
-        <Grid.Column style={{ maxWidth: 450 }}>
+        <Grid 
+        textAlign='center' 
+        style={{ height: '100%', verticalAlign:'flex-start', marginTop: "14em"}}>
+        <Grid.Column 
+        style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Update your profile
         </Header>
+        {this.state.doesPasswordMatch ? this.passwordMismatch() : null}
+        {this.props.isEditing ? this.profileEditSuccess() : null}
         <Form size='large'>
           <Segment stacked
           style={{
@@ -57,19 +84,17 @@ class EditProfileForm extends React.Component{
           }}
           >
             <Form.TextArea
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
                 }}
               value= {this.state.about}
-              iconPosition="left"
+              iconPosition='left'
               placeholder="Tell us about yourself..."
               onChange={this.handleChangeAbout}
             >
             </Form.TextArea>
             <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
@@ -81,7 +106,6 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangeDisplayName}
             />
             <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
@@ -94,7 +118,6 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangePassword}
             />
               <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
@@ -106,7 +129,7 @@ class EditProfileForm extends React.Component{
               type='password'
               onChange={this.handleChangePasswordMatch}
             />
-            <Button color='teal' fluid size='large' onClick={this.props.registerUser}>
+            <Button color='teal' fluid size='large' onClick={this.handleSubmitProfile}>
               Submit Changes
             </Button>
           </Segment>
@@ -118,19 +141,19 @@ class EditProfileForm extends React.Component{
   }
 }
 
-//only need to map async props here
-const mapDispatchToProps = (dispatch) => {
+function mapStateToProps(state) {
   return {
-    editProfile: (username, password) => {
-      dispatch(editProfile(username, password))
-    },
-    // registerSuccess: (userName, displayName) => {
-    //   dispatch(registerSuccess(userName, displayName))
-    // },
-    // registerFail: () => {
-    //   dispatch(registerFail())
-    // } 
+      token: state.auth.token,
+      isEditing: state.isPasswordUpdated
   }
 }
 
-export default connect( null , mapDispatchToProps )(EditProfileForm)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editProfile: (password, token, displayName, about) => {
+      dispatch(editProfile(password, token, displayName, about))
+    },
+  }
+}
+
+export default connect( mapStateToProps , mapDispatchToProps )(EditProfileForm)

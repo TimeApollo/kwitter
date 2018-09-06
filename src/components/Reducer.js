@@ -4,6 +4,7 @@ import {
   USER_LOGOUT_FAIL,
   USER_LOGOUT_SUCCESS,
   EDIT_PROFILE,
+  IS_EDITING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   IS_REGISTERING,
@@ -193,6 +194,11 @@ const kwitterReducer = ( state = initialState , action ) => {
       return {
         ...state,
         isPasswordUpdated: true
+      }
+    case IS_EDITING:
+      return {
+        ...state,
+        isPasswordUpdated: false
       }
     case DELETE_USER_SUCCESS:
       return {
