@@ -11,6 +11,7 @@ export const ROUTING_TO_REGISTER_PAGE = "ROUTING_TO_REGISTER_PAGE";
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
 export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
+export const IS_EDITING = "IS_EDITING";
 export const GET_USERS = "GET_USERS";
 export const GET_ONE_USER = "GET_ONE_USER";
 export const GET_MESSAGES = "GET_MESSAGES";
@@ -364,6 +365,7 @@ export const deleteLikeSuccess = () => {
 }
 
 export const editProfile = (password, token, displayName, about) => (dispatch) => {
+  dispatch(isEditing())
 
   let changes = {}
 
@@ -373,8 +375,10 @@ export const editProfile = (password, token, displayName, about) => (dispatch) =
 
   if (about) changes["about"] = about
 
+  console.log(changes)
+
     const header = {
-        method: "POST",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -386,6 +390,12 @@ export const editProfile = (password, token, displayName, about) => (dispatch) =
         .then(users => {
             dispatch(updatePasswordSuccess(users))
         })
+}
+
+export const isEditing = () => {
+  return {
+    type: IS_EDITING,
+  }
 }
 
 export const updatePasswordSuccess = (users) => {
