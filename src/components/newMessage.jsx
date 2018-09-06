@@ -7,13 +7,17 @@ import { Switch, Route } from "react-router-dom"
 class NewMessage extends React.Component {
 
     state = {
-        message: ""
+        message: "",
+        messageIsLongEnough: false
     }
 
     profileForm = () => {
         return (
             <Form
-            style={{marginBottom: "3em", marginTop: "14em"}}
+            style={{
+                marginBottom: "3em", 
+                marginTop: "14em",
+            }}
             >
             <TextArea
                 placeholder="What's on your mind?"
@@ -25,7 +29,7 @@ class NewMessage extends React.Component {
             <Button
                 style={{
                     color: "rgb(65, 118, 115)",
-                    padding: "8px"
+                    padding: "8px",
                 }}
                 onClick={this.handleNewMessageProfileButton}
                 >
@@ -54,7 +58,12 @@ class NewMessage extends React.Component {
         
         return (
         <Form
-            style={{marginBottom: "3em", marginTop: "14em"}}
+            style={{
+                marginBottom: "3em", 
+                marginTop: "14em",
+                display: "flex",
+                justifyContent: "center"
+            }}
         >
             <TextArea
                 placeholder="What's on your mind?"
@@ -62,6 +71,7 @@ class NewMessage extends React.Component {
                 value={this.state.message}
                 onKeyPress={this.handleNewMessageEnter}
                 maxLength= "255"
+                style= {{maxWidth: "35.7em"}}
             />
             <Button
                 style={{
@@ -99,9 +109,8 @@ class NewMessage extends React.Component {
     render() {
         return (
             <Switch>
-                <Route path="/home" component={this.profileForm}/>>
-                <Route path="/feed" comonent={this.feedForm}/>>
-
+                <Route path="/home" component={this.profileForm}/>
+                <Route path="/feed" component={this.feedForm}/>
             </Switch>
     )}
 }

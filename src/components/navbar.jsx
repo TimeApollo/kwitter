@@ -45,7 +45,7 @@ class Navbar extends React.Component {
                     display: "flex",
                     flexDirection: "row-reverse",
                     justifyContent: "flex-start",
-                    marginRight: "5em",
+                    marginRight: "18em",
                 }}>
                     <Grid.Column>
                         <Button
