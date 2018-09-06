@@ -99,7 +99,6 @@ export const userLogin = (username , password) => (dispatch) => {
     .then(response => response.json())
     .then(loginResponse => {
         //add code to push to new URL after this fetch is completed so that it goes to profile page
-      console.log(loginResponse)
       if( loginResponse.success ){
         dispatch(userLoginSuccess(loginResponse.token,loginResponse.success, loginResponse.id))
         dispatch(push('/home'))

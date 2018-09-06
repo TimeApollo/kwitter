@@ -25,6 +25,7 @@ class MessageFeed extends React.Component {
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
               meta={"likes: " + message.likes.length}
+              likes={message.likes}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
@@ -43,6 +44,7 @@ class MessageFeed extends React.Component {
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
               meta={"likes: " + message.likes.length}
+              likes={message.likes}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
