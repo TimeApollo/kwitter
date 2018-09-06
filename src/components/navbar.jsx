@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Grid } from "semantic-ui-react"
-import { feedButtonRoute , editProfileButtonRoute , loginButtonRoute , profileButtonRoute , userLogout } from './action'
+import { feedButtonRoute , editProfileButtonRoute , loginButtonRoute , profileButtonRoute , userLogout , registerButtonRoute } from './action'
 import { connect } from 'react-redux'
 import { Switch , Route } from 'react-router-dom'
 
@@ -101,6 +101,25 @@ class Navbar extends React.Component {
     handleLogoutButton = () => {
         this.props.userLogout()
     }
+
+    registerButton = () => {
+        return (
+            <Button
+                onClick={this.handleRegisterButton}
+                style={{
+                    color: "rgb(65, 118, 115)",
+                    backgroundColor: "white",
+                    padding: "8px"
+                }}
+            >
+                Register
+            </Button>
+        )
+    }
+
+    handleRegisterButton = () => {
+        this.props.registerButtonRoute()
+    }
     
     render() {
 
@@ -116,6 +135,7 @@ class Navbar extends React.Component {
                     <img 
                         className="banner" 
                         src={require("../kwitterLogoFlare.png")}
+                        alt='Kwitter Logo'
                         // style={{marginBottom: "18em"}}
                         />
                 </nav>
@@ -138,7 +158,7 @@ class Navbar extends React.Component {
                 }}>
                     <Grid.Column>
                         <Switch>
-                            <Route exact path='/' component={this.loginButton}/>
+                            <Route exact path='/' component={this.registerButton}/>
                             <Route exact path='/register' component={this.loginButton}/>
                             <Route path='*' component={this.logoutButton}/>
                         </Switch>
@@ -162,14 +182,6 @@ class Navbar extends React.Component {
         )
     }
 }
-
-// function mapStateToProps({auth, userId, user, users, messages}) {
-//     auth,
-//     userID, 
-//     user,
-//     users,
-//     messages
-//   }
   
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -187,6 +199,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         userLogout: () => {
             dispatch(userLogout())
+        },
+        registerButtonRoute: () => {
+            dispatch(registerButtonRoute())
         }
     }
 }
