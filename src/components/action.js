@@ -214,7 +214,6 @@ export const fetchMessages = () => (dispatch) => {
   fetch(`${api}/messages?limit=10000`)
     .then(response => response.json())
     .then(messages => {
-      let thing = messages.messages
       dispatch(getMessages(messages))
     })
 }
@@ -425,5 +424,9 @@ export const loginButtonRoute = () => (dispatch) => {
 
 export const profileButtonRoute = () => (dispatch) => {
   dispatch(push('/home'))
+}
+
+export const registerButtonRoute = () => (dispatch) => {
+  dispatch(push('/register'))
 }
 

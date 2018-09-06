@@ -146,6 +146,10 @@ const kwitterReducer = ( state = initialState , action ) => {
         },
         isPasswordUpdated: false,
       }
+    case USER_LOGOUT_FAIL:
+      return {
+        ...state
+      }
     case GET_MESSAGES:
       return {
         ...state,

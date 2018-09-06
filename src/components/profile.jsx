@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { fetchUsers , fetchOneUser , fetchMessages } from './action'
 import NewMessage from "./newMessage"
 import MessageFeed from "./messageList"
-import Navbar from "./navbar"
-
 
 class Profile extends React.Component{
 
