@@ -27,14 +27,12 @@ class ProfileSidebar extends React.Component {
   }
   matchIdtoUsername = (userId) => {
     let name = this.props.users.filter(user => user.id === userId)
-    console.log(name)
     return name[0].username
   }
 
   trendingMessages = () => {
     
     let topMessages = this.props.messages.sort((a,b) => b.likes.length - a.likes.length).slice(0, 7)
-    console.log(topMessages)
 
     return (
       topMessages.map(message =>{

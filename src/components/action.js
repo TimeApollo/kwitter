@@ -206,7 +206,6 @@ export const fetchMessages = () => (dispatch) => {
     .then(response => response.json())
     .then(messages => {
       let thing = messages.messages
-      console.log(new Date(thing[0].createdAt).getMonth())
       dispatch(getMessages(messages))
     })
 }
@@ -233,7 +232,7 @@ export const getOneMessage = (message) => {
   }
 }
 
-export const postMessage = (token,text) => (dispatch) => {
+export const postMessageProfile = (token,text,userID) => (dispatch) => {
   const header = {
     method: "POST",
     headers: {
@@ -248,9 +247,28 @@ export const postMessage = (token,text) => (dispatch) => {
     .then(response => response.json())
     .then(message => {
       dispatch(postMessageSuccess(message))
+      dispatch(fetchOneUser(userID))
     })
 }
 
+export const postMessageFeed = (token,text) => (dispatch) => {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      "text":text,
+    })
+  }
+  fetch(`${api}/messages`, header)
+    .then(response => response.json())
+    .then(message => {
+      dispatch(postMessageSuccess(message))
+      dispatch(fetchMessages())
+    })
+}
 //needs to hit text and user id, message id will be created when posted
 export const postMessageSuccess = (message) => {
     return {
@@ -383,3 +401,4 @@ export const userDeletedSuccess = () => {
     type:  DELETE_USER_SUCCESS
   }
 }
+
