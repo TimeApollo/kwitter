@@ -50,7 +50,7 @@ class LoginForm extends React.Component{
             height: 100%;
           }
         `}</style>
-        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em" }}>
+        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "18em" }}>
           <Grid.Column style={{ maxWidth: 450 }}>
             { this.props.register.isRegisterSuccess ? this.registerSuccess() : null }
             { this.props.auth.isLoginFail ? loginFail : null }

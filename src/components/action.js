@@ -364,16 +364,23 @@ export const deleteLikeSuccess = () => {
   }
 }
 
-export const editProfile = (password, token) => (dispatch) => {
+export const editProfile = (password, token, displayName, about) => (dispatch) => {
+
+  let changes = {}
+
+  if (password) changes["password"] = password
+
+  if (displayName) changes["displayName"] = displayName
+
+  if (about) changes["about"] = about
+
     const header = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-            "password": password
-        })
+        body: JSON.stringify(changes)
     }
     fetch(`${api}/users`, header)
         .then(response => response.json())

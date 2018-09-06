@@ -8,8 +8,10 @@ import Navbar from "./navbar.jsx"
 class EditProfileForm extends React.Component{
 
   state = {
+    displayName: "",
     password: "",
     passwordMatch: "",
+    about: ""
   }
 
   handleSubmitProfile = () => {
@@ -43,9 +45,11 @@ class EditProfileForm extends React.Component{
              height: 100%;
            }
          `}</style>
-        <Navbar></Navbar>
-        <Grid textAlign='center' style={{ height: '100%', verticalAlign:'flex-start', marginTop: "4em"}}>
-        <Grid.Column style={{ maxWidth: 450 }}>
+        <Grid 
+        textAlign='center' 
+        style={{ height: '100%', verticalAlign:'flex-start', marginTop: "14em"}}>
+        <Grid.Column 
+        style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           <Image src="logo.ico" />Update your profile
         </Header>
@@ -57,19 +61,17 @@ class EditProfileForm extends React.Component{
           }}
           >
             <Form.TextArea
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
                 }}
               value= {this.state.about}
-              iconPosition="left"
+              iconPosition='left'
               placeholder="Tell us about yourself..."
               onChange={this.handleChangeAbout}
             >
             </Form.TextArea>
             <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
@@ -81,7 +83,6 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangeDisplayName}
             />
             <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
@@ -94,7 +95,6 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangePassword}
             />
               <Form.Input
-              fluid
               style={{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",

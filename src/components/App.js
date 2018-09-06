@@ -15,18 +15,6 @@ import Navbar from "./navbar"
 class App extends Component {
   render() {
     return (
-      // <React.Fragment>
-    //   {/* //   <MessageFeed></MessageFeed> */}
-    //     {/* <Navbar></Navbar> */}
-    //     {/* <Message></Message> */}
-    //     {/* <Message></Message> */}
-    //     {/* <Message></Message> */}
-    //     {/* <ProfileSidebar></ProfileSidebar> */}
-    //   {/* //   <RegisterUserForm></RegisterUserForm> */}
-    //   {/* //   <LoginForm></LoginForm> */}
-    //   {/* //   <EditProfileForm></EditProfileForm> */}
-    //   {/* <Profile></Profile> */}
-    //  {/* </React.Fragment> */}
     <div>
       <Switch>
         <Route path='*' component={Navbar}/>
