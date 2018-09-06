@@ -25,20 +25,20 @@ class ProfileSidebar extends React.Component {
     return months[month] + " " + day + ", " + year;
 
   }
-  matchIdtoUsername = (userId) => {
-    let name = this.props.users.filter(user => user.id === userId)
-    console.log(name)
-    return name[0].username
-  }
+  // matchIdtoUsername = (userId) => {
+  //   let name = this.props.users.filter(user => user.id === userId)
+  //   console.log(name)
+  //   return name[0].username
+  // }
 
-  trendingMessages = () => {
-    return (
-      this.props.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
-        <Card.Content>
-            username={this.matchIdtoUsername(message.userId)}
-            summary={message.text}
-            messageId={message.id}
-        </Card.Content>
+  // trendingMessages = () => {
+  //   return (
+  //     this.props.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
+  //       <Card.Content>
+  //           username={this.matchIdtoUsername(message.userId)}
+  //           summary={message.text}
+  //           messageId={message.id}
+  //       </Card.Content>
 
 
   render() {

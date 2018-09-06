@@ -90,7 +90,6 @@ class MessageFeed extends React.Component {
   
   render() {
 
-    const feedMessages = this.messageObject
     return (
       <div
           style={{ 
@@ -136,6 +135,5 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageFeed)
