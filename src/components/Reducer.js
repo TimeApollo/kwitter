@@ -127,16 +127,24 @@ const kwitterReducer = ( state = initialState , action ) => {
       }
     case USER_LOGOUT_SUCCESS:
       return {
+        ...state,
         auth: {
           token: null,
-          isLoginSuccess: false
+          isLoginSuccess: false,
+          isLoginFail: false,
+          isLoggingIn: false,
         },
         messages: [],
         message: {},
-        users: {},
-        userID: null,
-        isRegisterSuccess: false,
-        isPasswordUpdated: false
+        user:{},
+        users:{},
+        userID:null,
+        register:{
+          isRegisterSuccess: false,
+          isRegisterFail: false,
+          isRegisteringUser: false,
+        },
+        isPasswordUpdated: false,
       }
     case GET_MESSAGES:
       return {

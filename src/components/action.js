@@ -140,10 +140,17 @@ export const clickedRegisterLink = () => {
 }
 
 export const userLogout = () => (dispatch) => {
-  fetch(`${api}/auth/logout`)
+
+  let header = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  }
+
+  fetch(`${api}/auth/logout`,header)
     .then(response => response.json())
     .then(logout => {
-      console.log(logout)
       dispatch(userLogoutSuccess(logout.success))
       dispatch(push('/'))
     })
@@ -188,6 +195,7 @@ export const getUsers = (users) => {
 }
 
 export const fetchOneUser = (userId) => dispatch => {
+  if(!userId) return
   fetch(`${api}/users/${userId}`)
     .then(response => response.json())
     .then(user => {
