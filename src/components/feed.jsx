@@ -42,7 +42,6 @@ class MessageFeed extends React.Component {
     const feedMessages = this.messageObject
     return (
       <div>
-        <Navbar></Navbar>
         <div
           style={{ 
           display: "flex",
