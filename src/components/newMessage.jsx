@@ -25,17 +25,19 @@ class NewMessage extends React.Component {
     )}
 }
 
-function mapStateToProps({auth}) {
-    return {
-        "token": auth.token
-    }
-}
+// function mapStateToProps({auth, userId, user, messages}) {
+//   auth,
+//   userID, 
+//   user,
+//   messages
+// }
 // function mapDispatchToProps = (dispatch) => {
 //     return {
-        
+//         submitMessage: (token, userID ) => {
+//             dispatch(userLogin(username, password))
+//         }
 //     }
 // }
 
-
-
-export default (NewMessage) 
+// export default connect(mapStateToProps, mapDispatchToProps)(NewMessage)
+export default (NewMessage)

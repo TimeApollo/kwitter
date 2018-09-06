@@ -141,13 +141,13 @@ render() {
 }    
 }
 
-// const mapStateToProps = ({auth, userID , user, users, messages}) => ({
-//   auth,
-//   userID,
-//   user,
-//   users,
-//   messages
-// });
+const mapStateToProps = ({auth, userID , user, users, messages}) => ({
+  auth,
+  userID,
+  user,
+  users,
+  messages
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

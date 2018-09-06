@@ -4,7 +4,6 @@ import {connect } from 'react-redux'
 import { editProfile } from './action'
 import Navbar from "./navbar.jsx"
 
-
 //need to work out conditions for checking if passwords match and if old password mathches before submitting new
 class EditProfileForm extends React.Component{
 
@@ -12,20 +11,26 @@ class EditProfileForm extends React.Component{
     password: "",
     passwordMatch: "",
   }
-  //click handler
 
   handleSubmitProfile = () => {
-    this.props.editProfile( this.state.password, this )
-  }
-  //need to have condition that password matches password stored on api 
-  //then must check that two new passwords match and then submit that to api
-  handleChangePassword = (event) => {
-       this.setState({password: event.target.value})
+    if (this.state.Password === this.state.passwordMatch) {
+    this.props.editProfile( this.state.displayName, this.state.about, this.state.password, this, )
+  }}
 
+  handleChangePassword = (event) => {
+    this.setState({password: event.target.value})
   }
 
   handleChangePasswordMatch = (event) => {
     this.setState({passwordMatch: event.target.value})
+  }
+
+  handleChangeDisplayName = (event) => {
+    this.setState({displayName: event.target.value})
+  }
+
+  handleChangeAbout = (event) => {
+    this.setState({about: event.target.value})
   }
 
   render(){
@@ -69,11 +74,11 @@ class EditProfileForm extends React.Component{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
                 }}
-              value= {this.state.password}
+              value= {this.state.displayName}
               icon='user'
               iconPosition='left'
               placeholder='Display name'
-              onChange={this.handleChangePassword}
+              onChange={this.handleChangeDisplayName}
             />
             <Form.Input
               fluid
