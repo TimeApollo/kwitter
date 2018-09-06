@@ -25,32 +25,43 @@ class ProfileSidebar extends React.Component {
     return months[month] + " " + day + ", " + year;
 
   }
-  // matchIdtoUsername = (userId) => {
-  //   let name = this.props.users.filter(user => user.id === userId)
-  //   console.log(name)
-  //   return name[0].username
-  // }
+  matchIdtoUsername = (userId) => {
+    let name = this.props.users.filter(user => user.id === userId)
+    console.log(name)
+    return name[0].username
+  }
 
-  // trendingMessages = () => {
-  //   return (
-  //     this.props.messages.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).map(message =>{
-  //       <Card.Content>
-  //           username={this.matchIdtoUsername(message.userId)}
-  //           summary={message.text}
-  //           messageId={message.id}
-  //       </Card.Content>
+  trendingMessages = () => {
+    
+    let topMessages = this.props.messages.sort((a,b) => b.likes.length - a.likes.length).slice(0, 7)
+    console.log(topMessages)
 
+    return (
+      topMessages.map(message =>{
+        return(
+        <div key={message.id}>
+        <Card.Content>
+        {this.matchIdtoUsername(message.userId)}
+          <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}}></Divider>
+        {message.text}
+        </Card.Content>
+        <Divider style={{backgroundColor: "black"}} ></Divider>
+        </div>
+        )
+      })
+    )
+  }  
 
   render() {
+
     return (
-      <React.Fragment>
-      <Card.Group
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        marginTop: "13.2em"
-      }} >
+  <Card.Group
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      marginTop: "13.2em"
+    }} >
       <Card
       centered
       style={{
@@ -64,78 +75,73 @@ class ProfileSidebar extends React.Component {
         marginBottom: "2em"
         }}
       >
-      <Card.Content>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-        <img
-          src={require("../avatarAvatar.png")} 
-          style={{
-            border: "1px solid", 
-            borderColor: "rgb(65, 118, 115)", 
-            backgroundColor: "rgb(0, 169, 160)", 
-            borderRadius: "4em",
-            width: "8em",
-            height: "8em",
-            marginRight: "auto", 
-            marginLeft: "auto",
-          }}
-        />
-        </div>
+        <Card.Content>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <img
+            src={require("../avatarAvatar.png")} 
+            style={{
+              border: "1px solid", 
+              borderColor: "rgb(65, 118, 115)", 
+              backgroundColor: "rgb(0, 169, 160)", 
+              borderRadius: "4em",
+              width: "8em",
+              height: "8em",
+              marginRight: "auto", 
+              marginLeft: "auto",
+            }}
+            />
+      </div>
         <Divider></Divider>
-        <Card.Header textAlign="center">
-        {this.props.user.username}
-          <Divider></Divider>
-        {this.props.user.displayName}
-        </Card.Header>
+      <Card.Header textAlign="center">
+      {this.props.user.username}
         <Divider></Divider>
-        <Card.Description textAlign="center">
+      {this.props.user.displayName}
+      </Card.Header>
+        <Divider></Divider>
+      <Card.Description textAlign="center">
         Member since
         <br></br>
-          {this.props.user.createdAt ? this.formatJoinDate(this.props.user.createdAt) : null}
+      {this.props.user.createdAt ? this.formatJoinDate(this.props.user.createdAt) : null}
         <Divider></Divider>
-          <h3 style={{marginTop: 0, marginBottom: 0, color: "black"}}><strong>About</strong></h3>
-          <br></br>
-          <p style={{marginTop: "-1em"}} >
-            {this.props.user.about}
-          </p>
-        </Card.Description>
-      </Card.Content>
-      </Card>
-
-      <Card
-      centered
-      style={{
-        border:"3px solid", 
-        borderColor: "rgb(65, 118, 115)", 
-        marginLeft: "-3em",
-        width: "25em",
-        height: "41em",
-        overflowX: "hidden",
-        padding: "1em",
-        }}
-      >
-      <Card.Content style={{textAlign: "center"}} >
-        <Card.Header>Trending  <Icon name="chart line"></Icon>
-          <Divider style={{backgroundColor: "black"}} ></Divider>
-        </Card.Header>
-      </Card.Content>
-      <Card.Content>
-        {this.props.username}
-        <Divider style={{maxWidth: "4em", marginLeft: "auto", marginRight: "auto"}}></Divider>
-        {this.props.summary}
-      </Card.Content>
-          <Divider style={{backgroundColor: "black"}}></Divider>
-      </Card>
-      </Card.Group>
-      </React.Fragment>
+      <h3 style={{marginTop: 0, marginBottom: 0, color: "black"}}><strong>About</strong></h3>
+        <br></br>
+      <p style={{marginTop: "-1em"}} >
+        {this.props.user.about}
+      </p>
+      </Card.Description>
+    </Card.Content>
+    </Card>
+    <Card
+    centered
+    style={{
+      border:"3px solid", 
+      borderColor: "rgb(65, 118, 115)", 
+      marginLeft: "-3em",
+      width: "25em",
+      height: "41em",
+      overflowX: "hidden",
+      padding: "1em",
+      }}
+    >
+    <Card.Content style={{textAlign: "center"}} >
+      <Card.Header>Trending  <Icon name="chart line"></Icon>
+        <Divider style={{backgroundColor: "black"}} ></Divider>
+      </Card.Header>
+      {this.props.messages && this.props.users ? this.trendingMessages() : null}
+    </Card.Content>
+    </Card>
+  </Card.Group>
 )}}
 
-const mapStateToProps = ({user}) => ({
-  user
+const mapStateToProps = ({user, messages, users}) => ({
+  user,
+  messages,
+  users
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -35,6 +35,7 @@ class App extends Component {
         <Route path='/messages' component={MessageFeed}/>
         <Route path='/home' component={Profile}/>
         <Route path='/feed' component={MessageFeed}/>
+        <Route path='/edit' component={EditProfileForm}/>
       </Switch>
     </div>
     );

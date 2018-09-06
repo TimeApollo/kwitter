@@ -67,6 +67,7 @@ class LoginForm extends React.Component{
                 <Form.Input
                   fluid
                   required
+                  autoFocus
                   value= {this.state.username}
                   className="username"
                   icon='user' 
