@@ -98,6 +98,7 @@ class RegisterUserForm extends React.Component{
             <Form.Input
               fluid
               required
+              autoFocus
               value={this.state.displayName}
               icon='user'
               iconPosition='left'

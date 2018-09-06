@@ -24,7 +24,7 @@ render() {
                 zIndex: 9,
                 color: "rgb(65, 118, 115)",
                 fontSize: 16,
-                padding: 9,
+                padding: "2",
                 border: "none",
                 cursor: "pointer",
                 borderRadius: 5,
@@ -36,19 +36,38 @@ render() {
                 marginRight: "5em",
             }}>
                 <Grid.Column>
-                    <Button>
-                        Feed
+                    <Button
+                    style={{
+                        color: "rgb(65, 118, 115)",
+                        backgroundColor: "white",
+                        padding: "8px"
+                    }}
+                    >
+                        Logout
                     </Button>
 
                 </Grid.Column>
                 <Grid.Column>
-                    <Button> 
+                    <Button
+                    style={{
+                        color: "rgb(65, 118, 115)",
+                        backgroundColor: "white",
+                        padding: "8px"
+
+                    }}> 
                         Edit Profile
                     </Button>
                 </Grid.Column>
                 <Grid.Column>
-                    <Button> 
-                        Logout
+                    <Button
+                    style={{
+                        color: "rgb(65, 118, 115)",
+                        marginRight: "4px",
+                        backgroundColor: "white",
+                        padding: "8px"
+                    }}
+                    > 
+                        Feed
                     </Button>
                 </Grid.Column>
             </Grid.Row>
@@ -56,5 +75,19 @@ render() {
     )}
 }
 
+// function mapStateToProps({auth, userId, user, users, messages}) {
+//     auth,
+//     userID, 
+//     user,
+//     users,
+//     messages
+//   }
+  
+// function mapDispatchToProps = (dispatch) => {
+//     return {
+
+//     }
+// }
+  
 
 export default (Navbar)
