@@ -145,6 +145,7 @@ export const userLogout = () => (dispatch) => {
     .then(logout => {
       console.log(logout)
       dispatch(userLogoutSuccess(logout.success))
+      dispatch(push('/'))
     })
     .catch(logout => {
       dispatch(userLogoutFail(logout.success))
@@ -400,5 +401,21 @@ export const userDeletedSuccess = () => {
   return {
     type:  DELETE_USER_SUCCESS
   }
+}
+
+export const feedButtonRoute = () => (dispatch) => {
+  dispatch(push('/feed'))
+}
+
+export const editProfileButtonRoute = () => (dispatch) => {
+  dispatch(push('/edit'))
+}
+
+export const loginButtonRoute = () => (dispatch) => {
+  dispatch(push('/'))
+}
+
+export const profileButtonRoute = () => (dispatch) => {
+  dispatch(push('/home'))
 }
 
