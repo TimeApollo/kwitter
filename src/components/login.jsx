@@ -3,7 +3,6 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogin , clickedRegisterLink } from './action';
-import Navbar from "./navbar.jsx";
 
 class LoginForm extends React.Component{
   

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Container } from "semantic-ui-react"
-import { withRouter , Switch , Route , Link} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { withRouter , Switch , Route } from 'react-router-dom';
 import './App.css';
-import { registerUser , registerSuccess , registerFail } from './action';
 import LoginForm from "./login.jsx";
 import EditProfileForm from "./editProfile.jsx";
 import RegisterUserForm from "./register.jsx";
 import MessageFeed from './feed';
 import Profile from './profile';
-import Message from "./message"
 import Navbar from "./navbar"
 
 class App extends Component {

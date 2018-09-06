@@ -81,7 +81,8 @@ class ProfileSidebar extends React.Component {
             }}
           >
             <img
-            src={require("../avatarAvatar.png")} 
+            src={require("../avatarAvatar.png")}
+            alt='user avatar' 
             style={{
               border: "1px solid", 
               borderColor: "rgb(65, 118, 115)", 

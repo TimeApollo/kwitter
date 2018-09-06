@@ -69,7 +69,8 @@ render() {
           <Grid.Column>
             <Divider></Divider>
             <img
-              src={require("../avatarAvatar.png")} 
+              src={require("../avatarAvatar.png")}
+              alt='user avatar' 
               width={60} 
               height={60}
               style={{
@@ -163,4 +164,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
  
-export default connect(undefined, mapDispatchToProps)(MessageComponent)
+export default connect( mapStateToProps, mapDispatchToProps )(MessageComponent)
