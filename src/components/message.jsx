@@ -51,6 +51,7 @@ render() {
             <Icon 
             link 
             name="close"
+            onClick={this.handleDeleteMessage}
             style={{
               display: "flex",
               color: "rgb(206, 206, 207"
