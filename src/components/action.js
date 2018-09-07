@@ -285,7 +285,7 @@ export const postMessageSuccess = (message) => {
     }
 }
 
-export const deleteMessage = (token, messageId) => dispatch => {
+export const deleteMessageFeed = (token, messageId) => dispatch => {
 
   const header = {
     method: "DELETE",
@@ -300,6 +300,26 @@ export const deleteMessage = (token, messageId) => dispatch => {
     .then(delResponse => {
       console.log(delResponse)
       dispatch(deleteMessageSuccess(delResponse))
+      dispatch(fetchMessages())
+    })
+}
+
+export const deleteMessageProfile = (token, messageId , userID) => dispatch => {
+
+  const header = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  }
+
+  fetch(`${api}/messages/${messageId}`, header)
+    .then(response => response.json())
+    .then(delResponse => {
+      console.log(delResponse)
+      dispatch(deleteMessageSuccess(delResponse))
+      dispatch(fetchOneUser(userID))
     })
 }
 
@@ -324,11 +344,33 @@ export const likeMessage = (userId,messageId,token) => dispatch => {
     })
   }
   
+  return fetch(`${api}/likes/`,header)
+    .then(response => response.json())
+    .then(likeObj => {
+      dispatch(likeMessageSuccess(likeObj))
+      return likeObj.like.id
+    })
+}
+
+export const likeMessageFeed = (userId,messageId,token) => dispatch => {
+  const header = {
+    method: "POST",
+    headers: {
+      "Content-Type":"application/json",
+      "Authorization":`Bearer ${token}`
+    },
+    body: JSON.stringify({
+      "userId": userId,
+      "messageId": messageId
+    })
+  }
+  
   fetch(`${api}/likes/`,header)
     .then(response => response.json())
     .then(likeObj => {
       console.log(likeObj)
       dispatch(likeMessageSuccess(likeObj))
+      dispatch(fetchMessages())
     })
 }
 
@@ -352,7 +394,6 @@ export const deleteLike = ( token, likeId ) => dispatch => {
   fetch(`${api}/likes/${likeId}`,header)
     .then(response => response.json())
     .then(like => {
-      console.log(like)
       dispatch(deleteLikeSuccess())
     })
 }

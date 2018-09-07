@@ -27,7 +27,8 @@ class ProfileSidebar extends React.Component {
   }
   matchIdtoUsername = (userId) => {
     let name = this.props.users.filter(user => user.id === userId)
-    return name[0].username
+    if(name[0]) return name[0].username
+    return 'Deleted'
   }
 
   trendingMessages = () => {
