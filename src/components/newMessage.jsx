@@ -44,7 +44,8 @@ class NewMessage extends React.Component {
         )
     }
     handleNewMessageProfileEnter= (event) => {
-        if (event.key === "Enter") {
+        console.log(event.target.value)
+        if (event.target.key === "Enter") {
             this.props.postMessageProfile(this.props.token, this.state.message, this.props.userID)
             this.props.fetchOneUser(this.props.userID)
             this.setState({message: ""})

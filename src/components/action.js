@@ -176,7 +176,7 @@ export const userLogoutFail = (success) => {
 export const fetchUsers = ( limit , offset ) => (dispatch) => {
   let getUserAPI = ``;
   if ( limit === undefined && offset === undefined ){
-    getUserAPI = `${api}/users`
+    getUserAPI = `${api}/users?limit=1000`
   }else{
     getUserAPI = `${api}/users?limit=${limit}&offset=${offset}`
   }
@@ -317,7 +317,6 @@ export const deleteMessageProfile = (token, messageId , userID) => dispatch => {
   fetch(`${api}/messages/${messageId}`, header)
     .then(response => response.json())
     .then(delResponse => {
-      console.log(delResponse)
       dispatch(deleteMessageSuccess(delResponse))
       dispatch(fetchOneUser(userID))
     })
@@ -408,28 +407,23 @@ export const editProfile = (password, token, displayName, about) => (dispatch) =
   dispatch(isEditing())
 
   let changes = {}
-
   if (password) changes["password"] = password
-
   if (displayName) changes["displayName"] = displayName
-
   if (about) changes["about"] = about
 
-  console.log(changes)
-
-    const header = {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(changes)
-    }
-    fetch(`${api}/users`, header)
-        .then(response => response.json())
-        .then(users => {
-            dispatch(updatePasswordSuccess(users))
-        })
+  const header = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(changes)
+  }
+  fetch(`${api}/users`, header)
+    .then(response => response.json())
+    .then(users => {
+      dispatch(updatePasswordSuccess(users))
+  })
 }
 
 export const isEditing = () => {
