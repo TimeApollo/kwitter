@@ -25,6 +25,7 @@ class ProfileSidebar extends React.Component {
     return months[month] + " " + day + ", " + year;
 
   }
+  
   matchIdtoUsername = (userId) => {
     let name = this.props.users.filter(user => user.id === userId)
     if(name[0]) return name[0].username
