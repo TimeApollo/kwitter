@@ -6,7 +6,7 @@ import { fetchMessages, fetchUsers, fetchOneUser } from "./action.js"
 import { Switch, Route } from "react-router-dom"
 
 class MessageFeed extends React.Component {
-
+  
   componentDidMount(){
     this.props.fetchUsers();
     this.props.fetchOneUser(this.props.userID);
@@ -15,7 +15,21 @@ class MessageFeed extends React.Component {
 
   matchIdtoUsername = (userId) => {
     let name = this.props.users.filter(user => user.id === userId)
-    return name[0].username
+    if(name[0]) return name[0].username
+    return 'Deleted'
+  }
+
+  isMessageLikedByUser = (likes) => {
+    return likes.some(like => like.userId === this.props.userID)
+  }
+
+  likeId = (likes) => {
+    let like = likes.filter(like => like.userId === this.props.userID)
+    if (like.length > 0){
+      return like[0].id
+    }else{
+      return null
+    }
   }
 
   feedMessages = () => {
@@ -24,7 +38,9 @@ class MessageFeed extends React.Component {
         return (
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
-              meta={"likes: " + message.likes.length}
+              totalLikes={message.likes.length}
+              likeId={this.likeId(message.likes)}
+              isLiked={this.isMessageLikedByUser(message.likes)}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
@@ -42,7 +58,9 @@ class MessageFeed extends React.Component {
         return (
             <MessageComponent
               date={this.formatPostDate(message.createdAt)}
-              meta={"likes: " + message.likes.length}
+              totalLikes={message.likes.length}
+              likeId={this.likeId(message.likes)}
+              isLiked={this.isMessageLikedByUser(message.likes)}
               summary={message.text}
               messageId={message.id}
               username={this.matchIdtoUsername(message.userId)}
@@ -107,7 +125,7 @@ class MessageFeed extends React.Component {
       }}
     >
       <Switch>
-        <Route path="/feed" component={this.feedMessages}></Route>
+        <Route path="/feed" component={ this.props.messages && this.props.users ? this.feedMessages : null }></Route>
         <Route path="/home" component={ this.props.user.messages ? this.profileMessages : null }></Route>
       </Switch>
     </Container>
