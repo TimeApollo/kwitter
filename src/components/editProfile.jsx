@@ -135,7 +135,7 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangePasswordMatch}
             />
             <Button color='teal' fluid size='large' onClick={this.handleSubmitProfile}>
-            Delete your account
+            Submit Changes
             </Button>
           </Segment>
           
@@ -155,7 +155,7 @@ class EditProfileForm extends React.Component{
             >
             </Form.TextArea>
             <Button color='teal' fluid size='large' onClick={this.handleDeleteUser}>
-              Submit Changes
+              Delete Forever
             </Button>
           </Segment>
         </Form>
