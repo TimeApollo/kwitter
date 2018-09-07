@@ -150,7 +150,6 @@ class EditProfileForm extends React.Component{
                 border:"1px solid", 
                 borderColor: "rgb(65, 118, 115)",
                 }}
-              value= {this.state.about}
               iconPosition='left'
               placeholder="Why are you leaving?"
             >
