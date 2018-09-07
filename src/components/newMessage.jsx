@@ -11,6 +11,10 @@ class NewMessage extends React.Component {
         // messageIsLongEnough: false
     }
 
+    handleSubmitMessage = (event) => {
+        this.setState({message: event.target.value})
+    }
+
     profileForm = () => {
         return (
             <Form
@@ -70,7 +74,7 @@ class NewMessage extends React.Component {
                 placeholder="What's on your mind?"
                 onChange={this.handleSubmitMessage}
                 value={this.state.message}
-                // onKeyPress={this.handleNewMessageEnter}
+                onKeyPress={this.handleNewMessageEnter}
                 maxLength= "255"
                 style= {{maxWidth: "35.7em"}}
             />
@@ -85,16 +89,6 @@ class NewMessage extends React.Component {
             </Button>
         </Form>
         )
-    }
-
-    handleSubmitMessage = (event) => {
-        console.log(event.key)
-        if (event.target.key === "Enter") {
-            this.props.postMessageProfile(this.props.token, this.state.message, this.props.userID)
-            this.props.fetchOneUser(this.props.userID)
-            this.setState({message: ""})
-        }
-        this.setState({message: event.target.value})
     }
 
     handleNewMessageEnter = (event) => {
