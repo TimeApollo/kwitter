@@ -21,7 +21,7 @@ class EditProfileForm extends React.Component{
 
   profileEditSuccess = () => {
     return (
-      <Segment raise>Profile successfully updated!</Segment>
+      <Segment raised>Profile successfully updated!</Segment>
     )
   }
 
