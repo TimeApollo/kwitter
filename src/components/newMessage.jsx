@@ -11,6 +11,10 @@ class NewMessage extends React.Component {
         // messageIsLongEnough: false
     }
 
+    handleSubmitMessage = (event) => {
+        this.setState({message: event.target.value})
+    }
+
     profileForm = () => {
         return (
             <Form
@@ -84,10 +88,6 @@ class NewMessage extends React.Component {
             </Button>
         </Form>
         )
-    }
-
-    handleSubmitMessage = (event) => {
-        this.setState({message: event.target.value})
     }
 
     handleNewMessageEnter = (event) => {
