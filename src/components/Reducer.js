@@ -176,11 +176,8 @@ const kwitterReducer = ( state = initialState , action ) => {
         ...state,
       }
     case DELETE_MESSAGE_SUCCESS:
-      console.log(action.payload.messages)
-      const newDeletedMessageArray = state.messages.filter(message => message.id !== action.payload.messages);
       return {
         ...state,
-        messages: newDeletedMessageArray
       }
     case LIKE_MESSAGE:
       return {

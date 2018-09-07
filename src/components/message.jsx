@@ -1,19 +1,114 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Switch , Route } from 'react-router-dom'
 import { Icon, Divider, Container, Card, Grid } from "semantic-ui-react"
-import { deleteMessage, deleteLike, likeMessage } from "./action.js"
+import { deleteMessageProfile , deleteMessageFeed , deleteLike, likeMessage, } from "./action.js"
 class MessageComponent extends React.Component {
 
-  handleDeleteMessage = () => {
-    this.props.deleteMessage(this.props.auth.token, this.props.messageId)
+  state = {
+    isLiked: this.props.isLiked,
+    totalLikes: this.props.totalLikes,
+    likeId: this.props.likeId,
   }
 
   handleLikeMessage = () => {
     this.props.likeMessage(this.props.userId, this.props.messageId, this.props.auth.token)
+      .then(like => {
+        return this.setState({isLiked: true , totalLikes: this.state.totalLikes + 1 , likeId: like})
+      })
   }
 
-  handleUnlikeMessage = () => {
-    // this.props.deleteLike(token, likeId)
+  unlikedMessage = () => {
+    return (
+      <Grid.Column 
+        style={{
+          marginTop: 5,
+          color: "rgb(73, 166, 159",
+        }}>
+            <span>{`Likes: ${this.state.totalLikes}`}</span>
+        <Icon 
+          link
+          onClick={this.handleLikeMessage}
+          name="thumbs up outline" 
+          size="large" 
+          style={{
+            color: "rgb(225, 225, 225",
+            marginLeft: 5,
+            marginBottom: 5,
+          }}>
+        </Icon>
+      </Grid.Column>
+    )
+  }
+
+  handleUnLikeMessage = () => {
+    this.props.deleteLike(this.props.auth.token, this.state.likeId)
+    this.setState({isLiked: false , totalLikes: this.state.totalLikes - 1})
+  }
+
+  likedMessage = () => {
+    return (
+      <Grid.Column 
+        style={{
+          marginTop: 5,
+          color: "rgb(73, 166, 159",
+        }}>
+            <span>{`Likes: ${this.state.totalLikes}`}</span>
+        <Icon 
+          link
+          onClick={this.handleUnLikeMessage}
+          name="thumbs up outline" 
+          size="large" 
+          style={{
+            color: "rgb(73, 166, 159",
+            marginLeft: 5,
+            marginBottom: 5,
+          }}>
+        </Icon>
+      </Grid.Column>
+    )
+  }
+
+  handleDeleteMessageProfile = () => {
+    this.props.deleteMessageProfile(this.props.auth.token, this.props.messageId, this.props.userID)
+  }
+
+  handleDeleteMessageFeed = () => {
+    this.props.deleteMessageFeed(this.props.auth.token, this.props.messageId)
+  }
+
+  deleteButtonProfile = () => {
+    return (
+      <Grid.Column>
+        <Icon 
+          link 
+          name="close"
+          onClick={this.handleDeleteMessageProfile}
+          style={{
+            display: "flex",
+            color: "rgb(206, 206, 207"
+          }}
+        >
+        </Icon>
+      </Grid.Column>
+    )
+  }
+
+  deleteButtonFeed = () => {
+    return (
+      <Grid.Column>
+        <Icon 
+          link 
+          name="close"
+          onClick={this.handleDeleteMessageFeed}
+          style={{
+            display: "flex",
+            color: "rgb(206, 206, 207"
+          }}
+        >
+        </Icon>
+      </Grid.Column>
+    )
   }
 
 render() {
@@ -47,16 +142,10 @@ render() {
           >
             <span>{this.props.username}</span>
           </Grid.Column>
-          <Grid.Column>
-            <Icon 
-            link 
-            name="close"
-            style={{
-              display: "flex",
-              color: "rgb(206, 206, 207"
-            }}>
-            </Icon>
-          </Grid.Column>
+          <Switch>
+            <Route path='/home' component={this.deleteButtonProfile}/>
+            <Route path='/feed' component={this.deleteButtonFeed}/>
+          </Switch>
         </Grid.Row>
         <Grid.Row 
           column={2}
@@ -120,24 +209,7 @@ render() {
           >
             <span>{this.props.date}</span>
           </Grid.Column>
-          <Grid.Column 
-          style={{
-            marginTop: 5,
-            color: "rgb(206, 206, 207",
-          }}>
-              <span>{this.props.meta}</span>
-            <Icon 
-            link
-            onClick={this.handleLikeMessage}
-            name="thumbs up outline" 
-            size="large" 
-            style={{
-              color: "rgb(206, 206, 207",
-              marginLeft: 5,
-              marginBottom: 5,
-            }}>
-            </Icon>
-          </Grid.Column>
+            {this.state.isLiked ? this.likedMessage() : this.unlikedMessage()}
         </Grid.Row>
       </Card>
     </div>
@@ -157,13 +229,16 @@ const mapStateToProps = ({auth, userID , user, users, messages}) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     likeMessage: (userId, messageId, token) => {
-      dispatch(likeMessage(userId, messageId, token))
+      return dispatch(likeMessage(userId, messageId, token))
     },
     deleteLike: (token, likeId) => {
       dispatch(deleteLike(token, likeId))
     },
-    deleteMessage: (token, messageId) => {
-      dispatch(deleteMessage(token, messageId))
+    deleteMessageProfile: (token, messageId , userID) => {
+      dispatch(deleteMessageProfile(token, messageId, userID))
+    },
+    deleteMessageFeed: (token, messageId) => {
+      dispatch(deleteMessageFeed(token, messageId))
     }
   }
 }
