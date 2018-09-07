@@ -176,7 +176,7 @@ export const userLogoutFail = (success) => {
 export const fetchUsers = ( limit , offset ) => (dispatch) => {
   let getUserAPI = ``;
   if ( limit === undefined && offset === undefined ){
-    getUserAPI = `${api}/users`
+    getUserAPI = `${api}/users?limit=1000`
   }else{
     getUserAPI = `${api}/users?limit=${limit}&offset=${offset}`
   }
