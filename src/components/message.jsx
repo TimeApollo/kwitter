@@ -185,7 +185,11 @@ render() {
               height: "auto"
             }}
             >
-              <span>{this.props.summary}</span>
+              <span
+              style={{
+                wordWrap:"break-word"
+              }}
+              >{this.props.summary}</span>
             </Container>
           </Grid.Column>
         </Grid.Row>
