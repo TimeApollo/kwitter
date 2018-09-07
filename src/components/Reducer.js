@@ -199,16 +199,23 @@ const kwitterReducer = ( state = initialState , action ) => {
       }
     case DELETE_USER_SUCCESS:
       return {
+        ...state,
         auth: {
           token: null,
-          isLoginSuccess: false
+          isLoginSuccess: false,
+          isLoginFail: false,
+          isLoggingIn: false,
         },
         messages: [],
         message: {},
         user:{},
         users:{},
         userID:null,
-        isRegisterSuccess: false,
+        register:{
+          isRegisterSuccess: false,
+          isRegisterFail: false,
+          isRegisteringUser: false,
+        },
         isPasswordUpdated: false,
       }
     default:
