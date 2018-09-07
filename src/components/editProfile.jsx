@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import {connect } from 'react-redux'
-import { editProfile } from './action'
+import { editProfile, deleteUser } from './action'
 
 class EditProfileForm extends React.Component{
 
@@ -11,6 +11,10 @@ class EditProfileForm extends React.Component{
     passwordMatch: "",
     about: "",
     doesPasswordMatch: false,
+  }
+
+  handleDeleteUser = (event) => {
+    this.props.deleteUser(this.props.token)
   }
 
   passwordMismatch = () => {
@@ -70,12 +74,13 @@ class EditProfileForm extends React.Component{
         textAlign='center' 
         style={{ height: '100%', verticalAlign:'flex-start', marginTop: "14em"}}>
         <Grid.Column 
-        style={{ maxWidth: 450 }}>
+        style={{ maxWidth: 450 }}
+        >
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Update your profile
+          <Image src="logo.ico" />Update Your Profile
         </Header>
-        {this.state.doesPasswordMatch ? this.passwordMismatch() : null}
-        {this.props.isEditing ? this.profileEditSuccess() : null}
+          {this.state.doesPasswordMatch ? this.passwordMismatch() : null}
+          {this.props.isEditing ? this.profileEditSuccess() : null}
         <Form size='large'>
           <Segment stacked
           style={{
@@ -130,6 +135,27 @@ class EditProfileForm extends React.Component{
               onChange={this.handleChangePasswordMatch}
             />
             <Button color='teal' fluid size='large' onClick={this.handleSubmitProfile}>
+            Delete your account
+            </Button>
+          </Segment>
+          
+        </Form>
+        <Header as='h2' color='teal' textAlign='center'>
+        Delete Your Account
+        </Header>
+        <Form>
+        <Segment>
+          <Form.TextArea
+              style={{
+                border:"1px solid", 
+                borderColor: "rgb(65, 118, 115)",
+                }}
+              value= {this.state.about}
+              iconPosition='left'
+              placeholder="Why are you leaving?"
+            >
+            </Form.TextArea>
+            <Button color='teal' fluid size='large' onClick={this.handleDeleteUser}>
               Submit Changes
             </Button>
           </Segment>
@@ -153,6 +179,9 @@ const mapDispatchToProps = (dispatch) => {
     editProfile: (password, token, displayName, about) => {
       dispatch(editProfile(password, token, displayName, about))
     },
+    deleteUser: (token) => {
+      dispatch(deleteUser(token))
+    }
   }
 }
 

@@ -458,6 +458,7 @@ export const deleteUser = (token) => dispatch => {
     .then(isDeleted => {
       console.log(isDeleted)
       dispatch(userDeletedSuccess())
+      dispatch(push("/"))
     })
 }
 
