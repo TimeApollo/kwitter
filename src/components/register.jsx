@@ -82,7 +82,7 @@ class RegisterUserForm extends React.Component{
       <Grid.Column style={{ maxWidth: 450, marginTop: "12em" }}>
         { this.props.register.isRegisterFail ? this.registerFail() : null }
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="../miniLogo.png" />Register a new account
+          <img src={require("../miniLogo.png")} />Register a new account
         </Header>
         
         <Form size='large'>

@@ -54,7 +54,7 @@ class LoginForm extends React.Component{
             { this.props.register.isRegisterSuccess ? this.registerSuccess() : null }
             { this.props.auth.isLoginFail ? loginFail : null }
             <Header as='h2' color='teal' textAlign='center'>
-              <Image src="../miniLogo.png" />Log-in to your account
+              <img src={require("../miniLogo.png")} />Log-in to your account
             </Header>
             <Form size='large'>
               <Segment 
