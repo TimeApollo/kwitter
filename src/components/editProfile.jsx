@@ -77,7 +77,7 @@ class EditProfileForm extends React.Component{
         style={{ maxWidth: 450 }}
         >
         <Header as='h2' color='teal' textAlign='center'>
-          <Image src="logo.ico" />Update Your Profile
+          <Image src="logo.png" />Update Your Profile
         </Header>
           {this.state.doesPasswordMatch ? this.passwordMismatch() : null}
           {this.props.isEditing ? this.profileEditSuccess() : null}
