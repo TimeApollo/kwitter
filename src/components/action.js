@@ -22,14 +22,14 @@ export const IS_REGISTERING = 'IS_REGISTERING';
 export const ROUTING_TO_LOGIN = 'ROUTING_TO_LOGIN';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
 
-const api = 'https://kwitter-api.herokuapp.com'
+const api = 'https://fast-basin-65577.herokuapp.com'
 
 export const registerUser = (username, password, displayName) => (dispatch) => {
   dispatch(isRegistering())
   const header = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+    "Content-Type": "application/json"
     },
     body: JSON.stringify({
       "username": username,
