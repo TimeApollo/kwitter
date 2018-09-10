@@ -5,7 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const history = createBrowserHistory();
+export const history = createBrowserHistory({basename: process.env.PUBLIC_URL});
 
 const store = createStore(
   connectRouter(history)(kwitterReducer),
